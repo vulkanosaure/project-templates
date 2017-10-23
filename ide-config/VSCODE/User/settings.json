@@ -1,0 +1,106 @@
+{
+
+
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  
+  "workbench.editor.enablePreview": false,
+  
+	"window.zoomLevel": 0,
+  "editor.snippetSuggestions": "top", /*,
+  "editor.parameterHints": false*/
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true
+  },
+
+  // Controls if opened editors should show in tabs or not.
+  "workbench.editor.showTabs": false,
+  
+
+  "editor.minimap.enabled": false,
+  "workbench.statusBar.visible": false,
+  "workbench.activityBar.visible": false,
+  "window.menuBarVisibility": "toggle",
+  "workbench.sideBar.location": "left",
+
+
+  "editor.insertSpaces": false,
+  "editor.detectIndentation": false,
+	"editor.tabSize": 2,
+	"editor.multiCursorModifier": "ctrlCmd",
+
+
+  "editor.scrollBeyondLastLine": false,
+  "editor.renderWhitespace": "none",
+	"editor.trimAutoWhitespace": false,
+	
+	"scrolloff.scrolloff": 10,
+	
+	
+	"macros": {
+    "insertLineAfter2": [
+			"editor.action.insertLineAfter",
+			"closeReferenceSearch"
+		],
+		"insertLineBefore2": [
+			"editor.action.insertLineBefore",
+			"closeReferenceSearch"
+		],
+		"scrollLineUp": [
+			"scrollLineUp",
+			"scrollLineUp",
+			"scrollLineUp",
+			"scrollLineUp"
+		],
+		"scrollLineDown": [
+			"scrollLineDown",
+			"scrollLineDown",
+			"scrollLineDown",
+			"scrollLineDown"
+		],
+		"moveUp" :[
+			"cursorUp","cursorUp","cursorUp","cursorUp"
+		],
+		"moveDown" :[
+		"cursorDown","cursorDown","cursorDown","cursorDown"
+		],
+		"moveUpSelect" :[
+			"cursorUpSelect","cursorUpSelect","cursorUpSelect","cursorUpSelect"
+		],
+		"moveDownSelect" :[
+			"cursorDownSelect","cursorDownSelect","cursorDownSelect","cursorDownSelect"
+		],
+		
+		"formatLine" : [
+			"expandLineSelection",
+			"formatSelection"
+		],
+		
+		"closeSearchLeft" : [
+			"closeReferenceSearch", "cancelSelection", "editor.action.smartSelect.grow",
+			"cursorLeft"
+		],
+		
+		"closeSearchRight" : [
+			"closeReferenceSearch", "cancelSelection", "editor.action.smartSelect.grow",
+			"cursorRight"
+		]
+		
+	},
+	"css_peek.exclude": [
+		"node_modules",
+		"bower_components",
+		"e2e",
+		"src/assets"
+		
+	],
+	"terminal.integrated.cwd": "D:/DEV/PROJECT_WAMP"
+}

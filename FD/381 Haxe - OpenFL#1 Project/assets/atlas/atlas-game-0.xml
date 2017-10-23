@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:9512d62d0ed77bc4bb401286322e351b:0a24c7e3916ac3f16a942de75f744ddb:30054bc33c3b046819d1333d05a2a9df$ -->
+<TextureAtlas imagePath="atlas-game-0.png">
+    <SubTexture name="game/bg0" x="2" y="2" width="480" height="640"/>
+    <SubTexture name="interface/buttons/btn-play" x="300" y="698" width="174" height="96"/>
+    <SubTexture name="interface/buttons/btn-rate" x="2" y="796" width="103" height="60"/>
+    <SubTexture name="interface/game-title" x="2" y="644" width="296" height="80"/>
+    <SubTexture name="interface/gears-logo" x="300" y="644" width="204" height="52"/>
+</TextureAtlas>

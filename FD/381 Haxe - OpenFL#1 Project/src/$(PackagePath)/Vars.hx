@@ -24,6 +24,7 @@ class Vars
 	public static var starlingStage:starling.display.Stage;
 	static public var assets:AssetManager;
 	static public var openflstage:openfl.display.Stage;
-	//static public var zoneCenterHomepage:LayoutSprite;
+	
+	
 	
 }

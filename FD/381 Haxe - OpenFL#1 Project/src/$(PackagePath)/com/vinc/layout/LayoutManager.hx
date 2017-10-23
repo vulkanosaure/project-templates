@@ -1,6 +1,5 @@
 package com.vinc.layout;
 import com.vinc.layout.LayoutSprite;
-import js.html.svg.Number;
 import openfl.display.Stage;
 import openfl.errors.Error;
 import openfl.events.Event;

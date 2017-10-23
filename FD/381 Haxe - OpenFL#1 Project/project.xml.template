@@ -22,8 +22,7 @@
 	<compilerflag name="-swf-version" value="11.8" if="flash" />
 	
 	<!-- assets -->
-	<icon path="assets/openfl.svg" />
-	<assets path="assets/img" rename="img" />
+	<assets path="assets" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->

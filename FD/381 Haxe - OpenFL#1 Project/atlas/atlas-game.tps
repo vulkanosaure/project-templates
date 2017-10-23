@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.8.0</string>
         <key>fileName</key>
-        <string>C:/Program Files (x86)/FlashDevelop/Projects/381 Haxe - OpenFL#1 Project/atlas/atlas-game.tps</string>
+        <string>D:/DEV/PROJECT_WAMP/DATA-PROJEKT/JEUX-OASIS/TEST_TEMPLATE3/atlas/atlas-game.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
