@@ -53,6 +53,10 @@ class Navigation
 	
 	static public function addItem(_iditem:String, _tabInclude:Array<String>, _tabExclude:Array<String>, _defIn:NavigationDef, _defOut:NavigationDef):Void 
 	{
+		if (_defOut == null){
+			_defOut = new NavigationDef("", _defIn.side, _defIn.delay, _defIn.dist, _defIn.fade, _defIn.time, _defIn.easing);
+		}
+		
 		var _instanceMain:NavigationInstance = getInstance(ROOT_NAME);
 		_instanceMain.addItem(_iditem, _tabInclude, _tabExclude, _defIn, _defOut);
 		
@@ -167,11 +171,11 @@ class Navigation
 	
 	
 	
-	public static function gotoScreen(_screenparent:String, _idscreen:String, _delayLock:Float = 1500):Void
+	public static function gotoScreen(_screenparent:String, _idscreen:String, _delayLock:Float = 1500, _noAnim:Bool = false):Void
 	{
 		trace("gotoScreen(" + _screenparent + ", " + _idscreen + ")");
 		var _instance:NavigationInstance = getInstance(_screenparent);
-		_instance.gotoScreen(_idscreen, _delayLock);
+		_instance.gotoScreen(_idscreen, _delayLock, _noAnim);
 	}
 	
 	

@@ -1,16 +1,7 @@
 package;
-import com.vinc.display.VButton;
-import com.vinc.display.VImage;
-import haxe.io.Error;
+import com.vinc.sound.SoundManager;
 import haxe.Timer;
 import openfl.Assets;
-import openfl.media.Sound;
-import openfl.media.SoundTransform;
-import openfl.system.Capabilities;
-import starling.text.BitmapFont;
-import starling.text.TextField;
-import starling.textures.Texture;
-import starling.textures.TextureAtlas;
 import starling.utils.AssetManager;
 
 /**
@@ -27,76 +18,172 @@ class LoaderManager
 	}
 	
 	
-	public static function load(onComplete:AssetManager->Void):Void
+	
+	
+	private static var onPreloadCompleteHandler:AssetManager->Void;
+	
+	private static var onCompleteHandler:AssetManager->Void;
+	private static var onProgressHandler:Float->Void;
+	
+	static private var assets:AssetManager;
+	
+	
+	
+	
+	private static function filterTab(tab:Array<String>, prefixes:Array<String>, bInclude:Bool):Array<String>
 	{
-		var assets:AssetManager = new AssetManager();
+		var output:Array<String> = [];
+		
+		for (str in tab){
+			if (bInclude){
+				for (prefix in prefixes){
+					var prefixlen:Int = prefix.length;
+					if (str.substr(0, prefixlen) == prefix){
+						output.push(str);
+						break;
+					}
+				}
+				
+				
+			}
+			else{
+				var bcontain:Bool = false;
+				for (prefix in prefixes){
+					var prefixlen:Int = prefix.length;
+					if (str.substr(0, prefixlen) == prefix){
+						bcontain = true;
+						break;
+					}
+				}
+				if (!bcontain) output.push(str);
+			}
+			
+		}
+		
+		return output;
+	}
+	
+	
+	
+	
+	//load asset for preloader
+	
+	public static function preload(_onCompleteHandler:AssetManager->Void, rootPath:String):Void
+	{
+		onPreloadCompleteHandler = _onCompleteHandler;
+		
+		assets = new AssetManager();
 		_am = assets;
+		assets.verbose = Constants.DEBUG_MODE;
 		
-        assets.verbose = Capabilities.isDebugger;
+		var list:Array<String> = filterTab(Assets.list(), ["assets/preload/"], true);
 		
-		VButton.assets = assets;
-		VImage.assets = assets;
+		list = list.map(function(value){
+			if (rootPath == "") return value;
+			else return rootPath + "/" + value;
+		});
+		
+		trace("list preload");
+		trace(list);
+		
+		assets.enqueue(list);
+		assets.loadQueue(preloadProgress);
 		
 		
+	}
+	
+	private static function preloadProgress(_ratio:Float):Void
+	{
+		//trace("preloadProgress(" + _ratio + ")");
+		if (_ratio == 1.0){
+			preloadComplete();
+		}
+	}
+	
+	private static function preloadComplete():Void
+	{
+		trace("preloadComplete");
+		onPreloadCompleteHandler(assets);
 		
-		var listAtlas:Array<String> = ["atlas-game-0"];
+	}
+	
+	
+	
+	public static function load(_onCompleteHandler:AssetManager->Void, _onProgressHandler:Float->Void, rootPath:String):Void
+	{
+		onCompleteHandler = _onCompleteHandler;
+		onProgressHandler = _onProgressHandler;
 		
-		var listSounds:Array<String> = [
-			//"sound.mp3",
-		];
+		//assets.enqueue
+		var list:Array<String> = filterTab(Assets.list(), ["assets/preload/", "assets/sounds/"], false);
+		trace("list 2 : " + list);
 		
-		var listSoundPreload:Array<String> = [
-			//"sound",
-		];
+		list = list.map(function(value){
+			if (rootPath == "") return value;
+			else return rootPath + "/" + value;
+		});
+		
+		assets.enqueue(list);
+		assets.loadQueue(loadProgress);
+		
+	}
+	
+	private static function loadProgress(_ratio:Float):Void
+	{
+		onProgressHandler(_ratio);
+		if (_ratio == 1.0){
+			trace("-- COMPLETE");
+			loadComplete();
+		}
+	}
+	
+	private static function loadComplete():Void
+	{
+		trace("loadComplete");
+		initAssets();
+	}
+	
+	
+	
+	
+	public static function initAssets():Void
+	{
+		trace("initAssets"); 
+		
+		
+		var list:Array<String> = filterTab(Assets.list(), ["assets/sounds/"], true);
+		trace("list sound : " + list);
+		
+		var len = list.length;
+		for (i in 0...len){
+			var url:String = list[i];
+			var tab:Array<String> = url.split("/");
+			var id:String = tab[tab.length - 1];
+			tab = id.split(".");
+			id = tab[0];
+			trace("addSound(" + id + ", " + url + ")");
+			SoundManager.addSound(id, url, true);
+			
+		}
 		
 		
         Timer.delay(function()
         {
-            //atlas
-			
-			for (_atlasname in listAtlas) {
-				
-				var atlasTexture:Texture = Texture.fromBitmapData(Assets.getBitmapData("assets/atlas/"+_atlasname+".png"), false);
-				var atlasXml:Xml = Xml.parse(Assets.getText("assets/atlas/" + _atlasname+".xml")).firstElement();
-				
-				assets.addTexture(_atlasname, atlasTexture);
-				assets.addTextureAtlas(_atlasname, new TextureAtlas(atlasTexture, atlasXml));
-				
-			}
-			
-			
-			
-			//fonts
-			
-            var _fontTexture:Texture = Texture.fromBitmapData(Assets.getBitmapData("assets/fonts/font_0.png"), false);
-            var _fontXml:Xml = Xml.parse(Assets.getText("assets/fonts/font.fnt")).firstElement();
-            TextField.registerBitmapFont(new BitmapFont(_fontTexture, _fontXml), "font_counter");
-			
-			
-			
-			
-			//sounds
-			
-			for (sound in listSounds) {
-				
-				var tab:Array<String> = sound.split(".");
-				var idsound:String = tab[0];
-				assets.addSound(idsound, Assets.getSound("assets/sounds/"+sound));
-			}
-			
-			
 			//probleme de delai du sound
+			//todo : check si tjs nécéssaire
 			
+			/*
 			for (sound in listSoundPreload) {
 				var _sound:Sound = assets.getSound(sound);
 				var _soundTransform:SoundTransform = new SoundTransform(0);
 				_sound.play(0, 0, _soundTransform);
 			}
+			*/
 			
-			
-            
-            onComplete(assets);
+            onCompleteHandler(assets);
         }, 0);
+		
+		
 		
 	}
 	

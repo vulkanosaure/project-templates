@@ -1,21 +1,6 @@
 package game;
 import com.vinc.common.BroadCaster;
-import com.vinc.debug.KeyboardDebug;
-import com.vinc.math.Math2;
-import com.vinc.navigation.Navigation;
-import com.vinc.time.DelayManager;
-import com.vinc.xtends.FSprite;
-import game.assets.HeroAsset;
-import openfl.display.DisplayObjectContainer;
-import openfl.display.Graphics;
-import openfl.display.Shape;
 import openfl.display.Stage;
-import openfl.media.Sound;
-import openfl.ui.Keyboard;
-import starling.core.Starling;
-import starling.display.DisplayObject;
-import starling.display.Image;
-import starling.display.QuadBatch;
 import starling.display.Sprite;
 import starling.events.Event;
 

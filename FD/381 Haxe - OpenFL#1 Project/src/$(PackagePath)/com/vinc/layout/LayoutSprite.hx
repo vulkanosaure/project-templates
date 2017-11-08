@@ -21,7 +21,9 @@ class LayoutSprite extends Sprite
 	public var centerV:Float;
 	
 	public var layoutWidth:Int;
+	public var layoutWidthPercent:Int;
 	public var layoutHeight:Int;
+	public var layoutHeightPercent:Int;
 	
 	public var isRoot:Bool;
 	
@@ -42,7 +44,7 @@ class LayoutSprite extends Sprite
 	
 	
 	
-	public function getLayoutWidth() 
+	public function getLayoutWidth(debug:Bool = false) 
 	{
 		if (this.layoutWidth == null) {
 			this.layoutWidth = Std.int(this.width);

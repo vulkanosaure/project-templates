@@ -20,13 +20,13 @@ class ControllerHome extends ControllerBase
 	
 	override public function onclick(_id:String):Void 
 	{
-		trace("ControllerHome.onclick(" + _id + ")");
+		trace("CtrlHome.onclick(" + _id + ")");
 		
 		
 		if (_id == "btnplay") {
 			
-			Navigation.gotoScreen("", "screen_game");
-			//Vars.assets.getSound("navigate").play();
+			//Navigation.gotoScreen("", "screen_game");
+			
 		}
 		
 		

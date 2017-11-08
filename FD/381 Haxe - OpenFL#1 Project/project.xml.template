@@ -6,11 +6,11 @@
 	<meta title="$(ProjectName)" package="$(PackageDot)$(ProjectID)" version="1.0.0" company="$(DefaultUser)" />
 	
 	<!-- output -->
-	<app main="$(PackageDot)Main" file="$(ProjectID)" path="bin" />
+	<app main="$(PackageDot)Main" file="$(ProjectID)" path="bin" preloader="CPreloader" />
 	
-	<window background="#000000" fps="60" />
-	<window width="1200" height="677" unless="mobile" />
-	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
+	<window background="#000000" fps="60" antialiasing="4" allow-high-dpi="true" />
+	<!-- <window width="1200" height="677" unless="mobile" /> -->
+	<window orientation="portrait" vsync="false" antialiasing="0" if="cpp" />
 	
 	<!-- classpath, haxe libs -->
 	<source path="src" />
@@ -22,7 +22,7 @@
 	<compilerflag name="-swf-version" value="11.8" if="flash" />
 	
 	<!-- assets -->
-	<assets path="assets" />
+	<assets path="assets" rename="assets" embed="false" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->

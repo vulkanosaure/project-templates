@@ -26,6 +26,7 @@ import starling.utils.AssetManager;
 class VButton extends LayoutSprite
 {
 	public static var assets:AssetManager;
+	public static var globalClickHandler:Void->Void;
 	
 	private var _btn:Button2;
 	public var clickHandler(default, set):Function;
@@ -56,7 +57,7 @@ class VButton extends LayoutSprite
 		var _textDisableState:Texture = (_disablestate == "") ? null : VButton.assets.getTexture(_disablestate);
 		
 		_btn = new Button2(_textUpState, "", _textDownState, null, _textDisableState);
-		this.addChild(_btn);
+		super.addChild(_btn);
 		
 		_btn.addEventListener(Event.TRIGGERED, onClick);
 		
@@ -67,6 +68,11 @@ class VButton extends LayoutSprite
 		
 		
 		
+	}
+	
+	override public function addChild(child:DisplayObject):DisplayObject 
+	{
+		return _btn.addChild(child);
 	}
 	
 	
@@ -81,7 +87,7 @@ class VButton extends LayoutSprite
 	}
 	
 	
-	private function updateState(_state:String):Void
+	public function updateState(_state:String):Void
 	{
 		//brightness
 		
@@ -100,9 +106,20 @@ class VButton extends LayoutSprite
 			else if (_state == ButtonState.DISABLED && br_disableState != null) _br = br_disableState;
 			else if (_state == ButtonState.OVER && br_overState != null) _br = br_overState;
 			
-			_filter.reset();
-			_filter2 = _filter.adjustBrightness(_br);
-			this.filter = _filter2;
+			//trace("VButton br : " + _br);
+			
+			if (_br != 0){
+				_filter.reset();
+				_filter2 = _filter.adjustBrightness(_br);
+				this.filter = _filter2;
+				
+			}
+			else{
+				//trace("- reset br");
+				this.filter = null;
+			}
+			
+			
 		}
 		
 		
@@ -121,6 +138,9 @@ class VButton extends LayoutSprite
 	{
 		if (clickHandler != null) {
 			clickHandler(this.idLayout);
+		}
+		if (globalClickHandler != null){
+			globalClickHandler();
 		}
 	}
 	

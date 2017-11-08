@@ -1,5 +1,4 @@
 package controllers;
-import com.vinc.display.VButton;
 import com.vinc.mvc.ControllerBase;
 import com.vinc.mvc.MVCRoot;
 import com.vinc.navigation.Navigation;
@@ -20,11 +19,6 @@ class ControllerEnd extends ControllerBase
 	override public function onclick(_id:String):Void 
 	{
 		trace("ControllerEnd.onClick(" + _id + ")");
-		
-		if (_id == "btnplay_end") {
-			Navigation.gotoScreen("", "screen_game");
-			
-		}
 		
 		
 	}

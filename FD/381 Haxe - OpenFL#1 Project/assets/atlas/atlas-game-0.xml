@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:9512d62d0ed77bc4bb401286322e351b:0a24c7e3916ac3f16a942de75f744ddb:30054bc33c3b046819d1333d05a2a9df$ -->
+<!-- $TexturePacker:SmartUpdate:ab130c60cbf5b389cea0b502fc6c68ae:d68cbb3f8975c5a9350e6e6025a095e5:30054bc33c3b046819d1333d05a2a9df$ -->
 <TextureAtlas imagePath="atlas-game-0.png">
-    <SubTexture name="game/bg0" x="2" y="2" width="480" height="640"/>
-    <SubTexture name="interface/buttons/btn-play" x="300" y="698" width="174" height="96"/>
-    <SubTexture name="interface/buttons/btn-rate" x="2" y="796" width="103" height="60"/>
-    <SubTexture name="interface/game-title" x="2" y="644" width="296" height="80"/>
-    <SubTexture name="interface/gears-logo" x="300" y="644" width="204" height="52"/>
+    <SubTexture name="font-g_0" x="363" y="933" width="496" height="86" frameX="-5" frameY="-5" frameWidth="512" frameHeight="512"/>
+    <SubTexture name="font_0" x="363" y="342" width="505" height="235" frameX="-3" frameY="-3" frameWidth="512" frameHeight="512"/>
+    <SubTexture name="game/bg-btn-big" x="363" y="579" width="341" height="352"/>
+    <SubTexture name="game/gfx-421" x="2" y="948" width="122" height="45"/>
+    <SubTexture name="game/mascotte-end" x="2" y="342" width="359" height="604"/>
+    <SubTexture name="game/text-end" x="2" y="2" width="700" height="338"/>
+    <SubTexture name="interface/btn_close" x="870" y="2" width="81" height="88"/>
+    <SubTexture name="interface/btn_sound_off" x="870" y="92" width="81" height="88"/>
+    <SubTexture name="interface/btn_sound_on" x="704" y="182" width="81" height="88"/>
 </TextureAtlas>

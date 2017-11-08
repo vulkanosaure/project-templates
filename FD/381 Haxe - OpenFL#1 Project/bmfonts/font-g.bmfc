@@ -2,10 +2,10 @@
 fileVersion=1
 
 # font settings
-fontName=SD Sans Fill One
+fontName=Fontbox Jeronimo Bouncy
 fontFile=
 charSet=0
-fontSize=70
+fontSize=38
 aa=1
 scaleH=100
 useSmoothing=1
@@ -20,10 +20,10 @@ renderFromOutline=0
 useClearType=1
 
 # character alignment
-paddingDown=3
-paddingUp=3
-paddingRight=3
-paddingLeft=3
+paddingDown=2
+paddingUp=2
+paddingRight=2
+paddingLeft=2
 spacingHoriz=1
 spacingVert=1
 useFixedHeight=0
@@ -50,6 +50,6 @@ invB=0
 outlineThickness=3
 
 # selected chars
-chars=32-34,43-46,48-58,61,63-90,183-184,192,194,197-202,206-207,212,214,217,219-220
+chars=32-34,43-46,48-58,61,63-90,184,192,194,197-202,206-207,212,214,217,219-220
 
 # imported icon images

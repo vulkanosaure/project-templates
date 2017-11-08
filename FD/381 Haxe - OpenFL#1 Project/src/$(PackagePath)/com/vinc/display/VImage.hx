@@ -10,14 +10,21 @@ import starling.utils.AssetManager;
  */
 class VImage extends LayoutSprite
 {
+	var _img:Image;
 	public static var assets:AssetManager;
 
 	public function new(_key:String) 
 	{
 		super();
 		
-		var _img:Image = new Image(assets.getTexture(_key));
+		_img = new Image(assets.getTexture(_key));
 		addChild(_img);
+	}
+	
+	
+	public function getImage():Image
+	{
+		return _img;
 	}
 	
 }

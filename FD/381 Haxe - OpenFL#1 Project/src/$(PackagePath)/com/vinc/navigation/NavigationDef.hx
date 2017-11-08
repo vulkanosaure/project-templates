@@ -22,9 +22,10 @@ class NavigationDef
 	public var fade(get, null):Bool;
 	public var time(get, null):Float;
 	public var easing(get, null):IEasing;
+	public var callback(get, null):String->Void;
 	
 	
-	public function new(__id:String, __side:String, __delay:Float, __dist:Float = 1100, __fade:Bool = false, __time:Float = 0.6, __easing:IEasing = null) 
+	public function new(__id:String, __side:String, __delay:Float, __dist:Float = 1100, __fade:Bool = false, __time:Float = 0.6, __easing:IEasing = null, __callback:String->Void = null) 
 	{
 		id = __id;
 		side = __side;
@@ -33,10 +34,14 @@ class NavigationDef
 		fade = __fade;
 		time = __time;
 		easing = __easing;
+		callback = __callback;
 	}
 	
 	
-	
+	public function setid(value:String):Void
+	{
+		id = value;
+	}
 	
 	
 	public function get_id():String 
@@ -83,6 +88,11 @@ class NavigationDef
 	public function get_easing():IEasing 
 	{
 		return easing;
+	}
+	
+	public function get_callback():String->Void 
+	{
+		return callback;
 	}
 	
 }

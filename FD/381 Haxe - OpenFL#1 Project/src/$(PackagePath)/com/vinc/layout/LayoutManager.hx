@@ -1,5 +1,6 @@
 package com.vinc.layout;
 import com.vinc.layout.LayoutSprite;
+import com.vinc.time.DelayManager;
 import openfl.display.Stage;
 import openfl.errors.Error;
 import openfl.events.Event;
@@ -38,6 +39,8 @@ class LayoutManager
 	static private var _screenRect:Rectangle;
 	static private var _listResizeHandlers:Array<Void->Void>;
 
+	public static var devicePixelRatio:Float = 1;
+	
 	
 	
 	public function new() 
@@ -45,11 +48,18 @@ class LayoutManager
 		
 	}
 	
-	public static function init(__starling:Starling, __mktteSize:Point):Void
+	
+	//appelé 2 fois
+	//1ere fois : mktteSize, screenRect
+	//2eme fois : starling , mktteSize
+	
+	//reordonner
+	
+	public static function init(__starling:Starling, __mktteSize:Point, __screenSize:Point = null):Void
 	{
 		_starling = __starling;
 		_mktteSize = __mktteSize;
-		
+		if(__screenSize != null) _screenRect = new Rectangle(0, 0, __screenSize.x, __screenSize.y);
 		
 	}
 	
@@ -62,12 +72,12 @@ class LayoutManager
 	
 	
 	
-	static public function ready() 
+	static public function update() 
 	{
 		
 		_isReady = true;
 		
-		if (_delayOnResize) {
+		if (true) {
 			_delayOnResize = false;
 			onResize(null);
 		}
@@ -76,18 +86,31 @@ class LayoutManager
 	
 	
 	
-	static public function addContainer(_item:Sprite, _type:String) :Void
+	static public function addContainer(_item:Sprite, _coeffResize:Float, _options:Object = null) :Void
 	{
 		if (_containers == null) {
 			_containers = new Array();
 			_containers_sp = new Array();
 		}
-		_containers.push( { "item" : _item, "type" : _type } );
+		_containers.push( { "item" : _item, "coeffResize" : _coeffResize, "options" : _options } );
 		_containers_sp.push(_item);
 		
 	}
 	
 	
+	
+	static private function getUnitValue(str:String):Dynamic
+	{
+		var len:Int = str.length;
+		if (str.substr(len - 2) == "px"){
+			var val:Int = Std.parseInt(str.substr(0, len - 2));
+			return {value:val, unit:"px"};
+		}
+		else{
+			var val:Int = Std.parseInt(str.substr(0, len - 1));
+			return {value:val, unit:"%"};
+		}
+	}
 	
 	
 	static public function addItem(_item:LayoutSprite, _data:Object = null) 
@@ -106,8 +129,20 @@ class LayoutManager
 				
 				
 				if (_key == "id") _item.idLayout = Std.string(_data[ _key]);
-				else if (_key == "width") _item.layoutWidth = _val;
-				else if (_key == "height") _item.layoutHeight = _val;
+				else if (_key == "width"){
+					
+					if (Std.is(_data[_key], String)){
+						var tab:Dynamic = getUnitValue(Std.string(_data[_key]));
+						if (tab.unit == "px") _item.layoutWidth = tab.value;
+						else _item.layoutWidthPercent = tab.value;
+						trace("item.layoutWidthPercent : " + _item.layoutWidthPercent);
+					}
+					else _item.layoutWidth = _val;
+					
+				}
+				else if (_key == "height"){
+					_item.layoutHeight = _val;
+				}
 				else if (_key == "margin-left") _item.marginLeft = _val;
 				else if (_key == "margin-right") _item.marginRight = _val;
 				else if (_key == "margin-top") _item.marginTop = _val;
@@ -172,7 +207,7 @@ class LayoutManager
 	
 	static public function onResize(e:Event):Void
     {
-		trace("LayoutManager.onResize " + e);
+		trace("LayoutManager.onResize ");
 		if (e != null) _evtResize = e;
 		
 		if (!_isReady) {
@@ -196,16 +231,20 @@ class LayoutManager
 		
 		
 		
+		//return;
+		
 		var _len:Int = _containers.length;
 		for (i in 0..._len) 
 		{
 			var _obj:Object = _containers[i];
 			
 			var _sp:Sprite = cast(_obj.item, Sprite);
-			var _type:String = cast(_obj.type, String);
-			resizeContainer(_sp, _type);
+			var _coeffResize:Float = cast(_obj.coeffResize, Float);
+			var _options:Object = _obj.options;
+			resizeContainer(_sp, _coeffResize, _options);
 			
 		}
+		
 		
 		var _nbitem:Int = _items.length;
 		for (j in 0..._nbitem) 
@@ -232,11 +271,7 @@ class LayoutManager
 		
 		if (_ls.centerH == null) {
 			if (_ls.marginRight != null) {
-				/*
-				if (_ls.debugLayout) {
-					trace("_ls.x = " + getContainerWidth(_ls) + " - " + _ls.getLayoutWidth() + " - " + _ls.marginRight);
-				}
-				*/
+				
 				_ls.x = getContainerWidth(_ls) - _ls.getLayoutWidth() - _ls.marginRight;
 			}
 			else if (_ls.marginLeft != null) {
@@ -245,6 +280,7 @@ class LayoutManager
 		}
 		else {
 			_ls.x = getContainerWidth(_ls) * _ls.centerH - _ls.getLayoutWidth() * _ls.centerH;
+			
 		}
 		
 		
@@ -272,14 +308,39 @@ class LayoutManager
 	
 	static private function getContainerWidth(ls:LayoutSprite) :Float
 	{
+		/*
 		if (ls.containerWidth != null) return ls.containerWidth;
 		else {
 			return _screenRect.width / ls.rootContainer.scaleX;
 		}
+		*/
+		
+		var rootdim:Float = _screenRect.width;
+		
+		if (ls.parent != null && !Std.is(ls, LayoutSprite)){
+			
+			var lsparent:LayoutSprite = Std.instance(ls.parent, LayoutSprite);
+			if (lsparent.layoutWidthPercent != null) return Std.int(rootdim * ls.layoutWidthPercent / 100);
+			else return lsparent.layoutWidth;
+		}
+		else return _screenRect.width / ls.rootContainer.scaleX;
+		
 	}
 	static private function getContainerHeight(ls:LayoutSprite) :Float
 	{
+		/*
 		if (ls.containerHeight != null) return ls.containerHeight;
+		else return _screenRect.height / ls.rootContainer.scaleY;
+		*/
+		
+		var rootdim:Float = _screenRect.height;
+		
+		if (ls.parent != null && !Std.is(ls, LayoutSprite)){
+			
+			var lsparent:LayoutSprite = Std.instance(ls.parent, LayoutSprite);
+			if (lsparent.layoutHeightPercent != null) return Std.int(rootdim * ls.layoutHeightPercent / 100);
+			else return lsparent.layoutHeight;
+		}
 		else return _screenRect.height / ls.rootContainer.scaleY;
 	}
 	
@@ -288,22 +349,42 @@ class LayoutManager
 	
 	
 	
-	static private function resizeContainer(_sp:Sprite, _type:String) :Void
+	static public function resizeContainer(_sp:Dynamic, _coeffResize:Float, _options:Object) :Void
 	{
-		var _type2:String = "";
-		if (_type == NO_BORDER) _type2 = ScaleMode.NO_BORDER;
-		else if (_type == SHOW_ALL) _type2 = ScaleMode.SHOW_ALL;
-		
 		var _mktteRect:Rectangle = new Rectangle(0, 0, _mktteSize.x, _mktteSize.y);
-        var _rect:Rectangle = RectangleUtil.fit(_mktteRect, _screenRect, _type2);
-		var _scale:Float = _rect.width / _mktteRect.width;
-		_sp.scaleX = _sp.scaleY = _scale;
+		trace("_mktteSize : " + _mktteSize);
+		trace("_screenRect : " + _screenRect);
+        
+		var _rect0:Rectangle = RectangleUtil.fit(_mktteRect, _screenRect, ScaleMode.SHOW_ALL);
+		var _scale0:Float = _rect0.width / _mktteRect.width;
 		
-		/*
-		_sp.x = _screenRect.width * 0.5 - _mktteRect.width * _scale * 0.5;
-		_sp.y = _screenRect.height * 0.5 - _mktteRect.height * _scale * 0.5;
+		var _rect1:Rectangle = RectangleUtil.fit(_mktteRect, _screenRect, ScaleMode.NO_BORDER);
+		var _scale1:Float = _rect1.width / _mktteRect.width;
+		
+		var _scale:Float = _scale0 + _coeffResize * (_scale1 - _scale0);
+		
+		
+		if (_options != null){
+			if (_options["max-scale"]){
+				var _maxScale:Float = _options["max-scale"];
+				if (_scale > _maxScale) _scale = _maxScale;
+			}
+			if (_options["min-scale"]){
+				var _minScale:Float = _options["min-scale"];
+				if (_scale < _minScale) _scale = _minScale;
+			}
+		
+		}
+		//_scale *= 1 / devicePixelRatio;
 		trace("_scale : " + _scale);
-		*/
+		//_sp.scaleX = _sp.scaleY = _scale;
+		//_sp["scaleX"] = _sp["scaleY"] = _scale;
+		Reflect.setProperty(_sp, "scaleX", _scale);
+		Reflect.setProperty(_sp, "scaleY", _scale);
+		
+		
+		//trace("resizeContainer(x, " + _type+")");
+		
 		
 	}
 	

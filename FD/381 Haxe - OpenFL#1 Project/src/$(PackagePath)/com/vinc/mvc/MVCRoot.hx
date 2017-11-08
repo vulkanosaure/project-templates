@@ -45,9 +45,12 @@ class MVCRoot
 		return (_data[_idscreen] != null);
 	}
 	
-	static public function getController(_idscreen:String) :ControllerBase
+	static public function getController(_idscreen:String, _showError:Bool = true) :ControllerBase
 	{
-		if (_data[_idscreen] == null) throw new Error("controller #"+_idscreen+" wasn't found");
+		if (_data[_idscreen] == null){
+			if (_showError) throw new Error("controller #" + _idscreen + " wasn't found");
+			else return null;
+		}
 		return cast(_data[_idscreen].controller, ControllerBase);
 	}
 	

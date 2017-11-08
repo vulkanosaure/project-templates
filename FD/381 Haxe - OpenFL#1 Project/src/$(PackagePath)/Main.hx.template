@@ -1,26 +1,23 @@
 package $(PackageName);
 
+import com.vinc.display.VButton;
+import com.vinc.display.VImage;
 import com.vinc.layout.LayoutManager;
-import haxe.Timer;
-import openfl.Assets;
-import openfl.display.Bitmap;
+import com.vinc.time.DelayManager;
 import openfl.display.BitmapData;
 import openfl.display.Sprite;
 import openfl.display.StageAlign;
 import openfl.display.StageScaleMode;
 import openfl.display3D.Context3DRenderMode;
-import openfl.errors.Error;
-import openfl.geom.Rectangle;
-import openfl.Lib;
-import openfl.system.Capabilities;
 import starling.core.Starling;
 import starling.events.Event;
 import starling.textures.RenderTexture;
 import starling.utils.AssetManager;
 import starling.utils.Max;
-import starling.utils.RectangleUtil;
-import starling.utils.ScaleMode;
-import display.ProgressBar;
+
+#if html5 
+import js.Browser;
+#end
 
 
 /**
@@ -30,8 +27,9 @@ $(CBI)*/
 class Main extends Sprite $(CSLB){
 	
 	private var mStarling:Starling;
-    private var mBackground:Bitmap;
-    private var mProgressBar:ProgressBar;
+	var starlingRoot:StarlingRoot;
+	var params:Dynamic;
+	var rootPath:String;
 
 	public function new() $(CSLB){
 		
@@ -52,92 +50,94 @@ class Main extends Sprite $(CSLB){
 	
 	
 	private function start():Void
-    {
-		trace("Main.start (64bits)");
-		trace("DEBUGMODE : " + Constants.DEBUG_MODE);
+	{
+		trace("Main.start, debug:" + Constants.DEBUG_MODE);
+
+		params = this.stage.loaderInfo.parameters;
+		if (params == null) params = {};
+		
+		rootPath = (params.rootPath != null) ? params.rootPath : "";
+		
+		#if html5
+		var localPrefixes:Array<String> = ["http://localhost", "http://192.168."];
+		Constants.LOCALHOST = false;
+		for (i in 0...localPrefixes.length){
+			var prefix:String = localPrefixes[i];
+			if (Browser.window.location.href.indexOf(prefix) != -1) Constants.LOCALHOST = true;
+		}
+		#end
 		
 		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.align = StageAlign.TOP_LEFT;
 		
 		this.stage.addEventListener(Event.RESIZE, LayoutManager.onResize, false, Max.INT_MAX_VALUE, true);
-        
 		
-        Starling.multitouchEnabled = true; // for Multitouch Scene
-        Starling.handleLostContext = true; // recommended everywhere when using AssetManager
-        RenderTexture.optimizePersistentBuffers = true; // should be safe on Desktop
+		//Starling.multitouchEnabled = true; 	// for Multitouch Scene
+		Starling.handleLostContext = true; 		// recommended everywhere when using AssetManager
 		
-        mStarling = new Starling(StarlingRoot, stage, null, null, Context3DRenderMode.AUTO, "auto");
-        mStarling.simulateMultitouch = true;
-        mStarling.enableErrorChecking = Capabilities.isDebugger;
-		mStarling.antiAliasing = 0;
+		RenderTexture.optimizePersistentBuffers = true; // should be safe on Desktop
 		
-        mStarling.addEventListener(Event.ROOT_CREATED, function():Void
-        {
-            LoaderManager.load(startApp);
-			Vars.assets = LoaderManager.am();
-        });
+		mStarling = new Starling(StarlingRoot, stage, null, null, Context3DRenderMode.AUTO, "auto");
+		//mStarling.simulateMultitouch = true;
+		mStarling.enableErrorChecking = Constants.DEBUG_MODE;
+		
+		//mStarling.antiAliasing = 0;		//0 = no antialiasing
+		mStarling.antiAliasing = 16;		//16 = max
 		
 		
-        mStarling.start();
-        //initElements();
-    }
-	
-	
-	
-	private function initElements():Void
-    {
-        // Add background image.
-		/*
-        mBackground = new Bitmap(Assets.getBitmapData("assets/textures/1x/background.jpg"));
-        mBackground.smoothing = true;
-        addChild(mBackground);
+		mStarling.addEventListener(Event.ROOT_CREATED, function():Void
+		{
+			
+			trace("rootPath : " + rootPath);
+			LoaderManager.preload(preloadReady, rootPath);
+			
+		});
 		
-        // While the assets are loaded, we will display a progress bar.
+		trace("Constants.LOCALHOST : " + Constants.LOCALHOST);
+		if (!Constants.DEBUG_MODE && Constants.LOCALHOST) Starling.current.showStats = !Starling.current.showStats;
 		
-        mProgressBar = new ProgressBar(175, 20);
-        mProgressBar.x = (mBackground.width - mProgressBar.width) / 2;
-        mProgressBar.y =  mBackground.height * 0.7;
-        addChild(mProgressBar);
-		*/
+		mStarling.start();
 		
-    }
-	
-	
-    private function removeElements():Void
-    {
-		/*
-        if (mBackground != null)
-        {
-            removeChild(mBackground);
-            mBackground = null;
-        }
+	}
+
+	private function preloadReady(assets:AssetManager):Void
+	{
+		trace("Main.preloadReady");
+
+		VButton.assets = assets;
+		VImage.assets = assets;
+
+		starlingRoot = cast(mStarling.root, StarlingRoot);
+		starlingRoot.preload(stage, mStarling);
+
+		DelayManager.add("", 800, loadStart);
+
+	}
+
+	private function loadStart():Void
+	{
+		LoaderManager.load(loadComplete, loadProgress, rootPath);
+	}
+
+	private function loadProgress(ratio:Float):Void
+	{
+		//trace("Main.loadProgress(" + ratio + ")");
+		starlingRoot.loadProgress(ratio);
+	}
+
+	private function loadComplete(assets:AssetManager):Void
+	{
+		trace("Main.loadComplete");
 		
-        if (mProgressBar != null)
-        {
-            removeChild(mProgressBar);
-            mProgressBar = null;
-        }
-		*/
-    }
-	
-	
-	
-	
-	
-	
-	private function startApp(assets:AssetManager):Void
-    {
-		trace("startApp");
+		starlingRoot.loadComplete();
 		
-        var game:StarlingRoot = cast(mStarling.root, StarlingRoot);
-        game.start(stage, mStarling);
-        Timer.delay(removeElements, 150); // delay to make 100% sure there's no flickering.
-		
-		
-		
-    }
-	
-	
+		DelayManager.add("", 500, function()
+		{
+			starlingRoot.start(stage, mStarling);
+			
+		});
+
+	}
 
 }
