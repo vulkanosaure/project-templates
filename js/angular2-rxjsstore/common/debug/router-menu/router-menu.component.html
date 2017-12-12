@@ -1,0 +1,26 @@
+<nav>
+    
+
+    <b>GENERAL :</b><br />
+    <div *ngFor="let item of items">
+
+      <a *ngIf="!item.outlet" (click)="onclick(item)">{{item.path}}</a>
+    </div>
+    <div *ngFor="let item of items2">
+
+      <a (click)="onclick(item)">{{item.path}}</a>
+    </div>
+
+    <b>MODALS :</b><br />
+    <div *ngFor="let item of items">
+
+      <a *ngIf="item.outlet" (click)="onclick(item)">{{item.path}}</a>
+    </div>
+
+    <b>CLOSE MODALS :</b><br />
+    <div *ngFor="let outlet of listOutlet">
+
+      <a (click)="onCloseOutlet(outlet)">close {{outlet}}</a>
+    </div>
+
+</nav>
