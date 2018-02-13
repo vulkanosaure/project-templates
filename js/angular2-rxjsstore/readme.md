@@ -13,8 +13,10 @@
 
 package.json
 ajouter au script start :  --proxy-config proxy.config.json
+todo : voir comment faire pour coté serveur
 
-todo : voir comment faire pour backend
+autre solution : environment.apiUrl
+	ideal : mettre les data dans un fichier config.json en asset, loadé dynamiquement
 
 
 
@@ -23,4 +25,9 @@ todo : voir comment faire pour backend
 
 # compilation
 
-todo...
+ng build --base-href /app/ --aot=false
+--prod for minification
+
+environment ne marchait pas
+	- mise à jour de angular/cli local (1.6)
+	- un lien mort dans angular-cli.json

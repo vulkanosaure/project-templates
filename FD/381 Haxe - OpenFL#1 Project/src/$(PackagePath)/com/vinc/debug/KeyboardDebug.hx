@@ -56,7 +56,7 @@ class KeyboardDebug
 	
 	private static function getItemByKey(_key:Dynamic):Object
 	{
-		var _len:Int = (_data != null) ? _data.length : 0;
+		var _len:Null<Int> = (_data != null) ? _data.length : 0;
 		for (i in 0..._len) 
 		{
 			if (_data[i].key == _key) return _data[i];

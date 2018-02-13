@@ -30,7 +30,7 @@ class MVCRoot
 		_obj.idscreen = _idscreen;
 		
 		_controller.idscreen = _idscreen;
-		_controller.openflstage = openflstage;
+		//_controller.openflstage = openflstage;
 		
 		_data[_idscreen] = _obj;
 		

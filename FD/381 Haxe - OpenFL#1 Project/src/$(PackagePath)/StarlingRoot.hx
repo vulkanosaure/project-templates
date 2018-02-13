@@ -5,6 +5,7 @@ import com.vinc.mvc.MVCRoot;
 import com.vinc.mvc.ViewBase;
 import com.vinc.navigation.Navigation;
 import com.vinc.navigation.NavigationDef;
+import com.vinc.patterns.ActionDispatcher;
 import com.vinc.sound.SoundManager;
 import controllers.ControllerEnd;
 import controllers.ControllerGame;
@@ -17,6 +18,7 @@ import openfl.external.ExternalInterface;
 import openfl.geom.Point;
 import starling.core.Starling;
 import starling.display.Sprite;
+import starling.events.Event;
 import view.ViewEnd;
 import view.ViewGame;
 import view.ViewGlobal;
@@ -65,6 +67,10 @@ import view.ViewLoader;
 		_viewLoader = new ViewLoader();  _viewLoader.construct();
 		
 		LayoutManager.update();
+		
+		
+		//register here 
+		stage.addEventListener(Event.ENTER_FRAME, onEnterframe);
 		
 	}
 	
@@ -138,6 +144,19 @@ import view.ViewLoader;
 		cast(_viewGlobal, ViewGlobal).updateBtnSound(SoundManager.SOUND_ENABLED);
 		
 	}
+	
+	
+	
+	
+	
+	private function onEnterframe(e:Event):Void 
+	{
+		ActionDispatcher.dispatch("enterframe");
+	}
+	
+	
+	
+	
 
 	function onGotoAllScreenTransition(_prevscreen:String, _curscreen:String)
 	{
@@ -159,6 +178,13 @@ import view.ViewLoader;
 	private function onGotoAllScreen(_prevscreen:String, _curscreen:String)
 	{
 		//trace("onGotoAllScreen(" + _prevscreen + ", " + _curscreen + ")");
+		
+		
+		if (MVCRoot.isController(_curscreen))
+		{
+			//trace("getcontroller : " + _curscreen);
+			MVCRoot.getController(_curscreen).preupdate();
+		}
 		
 		if (MVCRoot.isController(_prevscreen))
 		{

@@ -1,8 +1,7 @@
 package com.vinc.time;
+import com.vinc.patterns.ActionDispatcher;
 import haxe.Constraints.Function;
-import openfl.errors.Error;
-import openfl.events.TimerEvent;
-import openfl.utils.Timer;
+import haxe.Timer;
 
 /**
  * ...
@@ -12,27 +11,52 @@ class Delay
 {
 	
 	private var timer:Timer;
+	private var time:Null<Int>;
 	
 	public var func(get,null):Function;
 	public var waiting(get,null):Bool;
 	@:isVar public var params(get,set):Array<Dynamic>;
-	@:isVar public var group(get,set):String;
+	@:isVar public var group(get, set):String;
+	
+	private var counter:Int;
 	
 	//_______________________________________________________________
 	//public functions
 	
-	public function new(t:Float, f:Function, args:Array<Dynamic> = null) 
+	public function new(t:Null<Float>, f:Function, args:Array<Dynamic> = null) 
 	{ 
-		if (t < 0) throw new Error("arg t must be > than 0");
+		if (t < 0) throw ("arg t must be > than 0");
 		params = args;
-		if(args!= null && args.length>10) throw new Error("Class Delay doesn't accept more than 10 parameters, you need to edit the class");
+		if(args!= null && args.length>10) throw ("Class Delay doesn't accept more than 10 parameters, you need to edit the class");
+		
+		/*
 		timer = new Timer(t, 1);
 		func = f;
 		timer.addEventListener(TimerEvent.TIMER, onTimer);
+		*/
+		
+		func = f;
+		time = Std.int(t);
+		
+		//trace("new Delay " + t);
 		
 		if (t > 0) {
-			timer.start();
+			
 			waiting = true;
+			if (!ActionDispatcher.hasEvent("enterframe")){
+				
+				//trace("Delay no AD");
+				timer = new Timer(time);
+				timer.run = onTimer;
+			}
+			else{
+				ActionDispatcher.listen("enterframe", onEnterframe);
+				counter = Math.round(time * (30 / 1000));
+				//trace("Delay counter : "+counter);
+				
+			}
+			
+			
 		}
 		else {
 			execFunction();
@@ -42,25 +66,39 @@ class Delay
 	
 	
 	
+	private function removeActionDispatcher():Void
+	{
+		ActionDispatcher.removeListener("enterframe", onEnterframe);
+	}
+	
+	
 	
 	public function stop():Void
 	{
-		timer.stop();
-		timer.reset();
+		if (timer != null) timer.stop();
+		else removeActionDispatcher();
+		
 	}
 	public function pause():Void
 	{
-		timer.stop();
+		if (timer != null) timer.stop();
+		else removeActionDispatcher();
 	}
 	
 	public function resume():Void
 	{
-		timer.start();
+		if (timer != null){
+			timer = new Timer(time);
+			timer.run = onTimer;			
+		}
+		else{
+			ActionDispatcher.listen("enterframe", onEnterframe);
+		}
 	}
 	
 	public function start():Void
 	{
-		timer.start();
+		
 	}
 	
 	//__________________________________________
@@ -97,15 +135,31 @@ class Delay
 	
 	//_______________________________________________________________
 	//events handlers
-	private function onTimer(e:TimerEvent):Void
+	
+	private function onTimer():Void
 	{
 		execFunction();
+		timer.stop();
 	}
+	
+	
+	private function onEnterframe() 
+	{
+		//trace("Delay.onEnterframe");
+		if (counter < 0){
+			removeActionDispatcher();
+			execFunction();
+		}
+		counter--;
+	}
+	
+	
+	
 	
 	private function execFunction():Void
 	{
 		waiting = false;
-		var len:Int = (params == null) ? 0 : params.length;
+		var len:Null<Int> = (params == null) ? 0 : params.length;
 		if(len==0) func();
 		else if(len==1) func(params[0]);
 		else if(len==2) func(params[0], params[1]);

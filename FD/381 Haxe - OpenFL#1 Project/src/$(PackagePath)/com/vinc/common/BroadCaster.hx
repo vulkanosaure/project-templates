@@ -1,32 +1,32 @@
 package com.vinc.common;
-import haxe.Constraints.Function;
-import starling.events.Event;
-import starling.events.EventDispatcher;
 
 /**
  * ...
  * @author Vincent Huss
  */
-class BroadCaster
+class BroadCaster 
 {
-	private static var _evtDispatcher:EventDispatcher;
+	private static var data:Map<String, Array<Dynamic->Void>>;
 
-	public function new() 
+	public static function dispatch(type:String, params:Dynamic = null):Void
 	{
+		if (data == null) data = new Map();
+		if (data[type] != null){
+			var tab:Array<Dynamic->Void> = data[type];
+			var len = tab.length;
+			for (i in 0...len) tab[i](params);
+		}
+	}
+	
+	public static function addEventListener(type:String, handler:Dynamic->Void):Void
+	{
+		if (data == null) data = new Map();
+		if (data[type] == null) data[type] = [];
+		var tab:Array<Dynamic->Void> = data[type];
+		tab.push(handler);
 		
 	}
 	
 	
-	public static function dispatchEvent(_evt:Event):Void
-	{
-		if (_evtDispatcher == null) _evtDispatcher = new EventDispatcher();
-		_evtDispatcher.dispatchEvent(_evt);
-	}
-	
-	public static function addEventListener(_type:String, _handler:Function):Void
-	{
-		if (_evtDispatcher == null) _evtDispatcher = new EventDispatcher();
-		_evtDispatcher.addEventListener(_type, _handler);
-	}
 	
 }

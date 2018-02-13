@@ -54,7 +54,7 @@ class ScreenBlink
 	}
 	
 	
-	public static function blink(_color:UInt, _timein:Float, _time:Float, _timeout:Float):Void
+	public static function blink(_color:UInt, _timein:Null<Float>, _time:Null<Float>, _timeout:Null<Float>):Void
 	{
 		_quad.color = _color;
 		
@@ -62,7 +62,7 @@ class ScreenBlink
 		_quad.alpha = 0;
 		Actuate.tween(_quad, _timein, { alpha : 1 } ).ease(Linear.easeNone);
 		
-		var _time2:Float = _timein + _time;
+		var _time2:Null<Float> = _timein + _time;
 		Actuate.tween(_quad, _timeout, { alpha : 0 }, false ).delay(_time2).ease(Linear.easeNone);
 		
 	}

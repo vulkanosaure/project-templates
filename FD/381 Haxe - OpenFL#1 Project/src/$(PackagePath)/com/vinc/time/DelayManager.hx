@@ -7,16 +7,15 @@ import haxe.Constraints.Function;
  */
 class DelayManager
 {
-
-	public function new() 
-	{
-		
-	}
+	static public var TESTING:Bool = false;
+	
 	private static var _items:Array<Delay>;
 	
 	
-	public static function add(_group:String, t:Float, f:Function, args:Array<Dynamic> = null):Void
+	public static function add(_group:String, t:Null<Float>, f:Function, args:Array<Dynamic> = null):Void
 	{
+		if (TESTING) t = 0;
+		
 		if (_items == null) _items = new Array();
 		var _d:Delay = new Delay(t, f, args);
 		_d.group = _group;
@@ -26,7 +25,7 @@ class DelayManager
 	public static function reset():Void
 	{
 		if (_items == null) _items = new Array();
-		var _len:Int = _items.length;
+		var _len:Null<Int> = _items.length;
 		for (i in 0..._len) 
 		{
 			var _d:Delay = cast(_items[i], Delay);
@@ -39,7 +38,7 @@ class DelayManager
 	public static function resetGroup(_group:String):Void
 	{
 		if (_items == null) _items = new Array();
-		var _len:Int = _items.length;
+		var _len:Null<Int> = _items.length;
 		for (i in 0..._len) 
 		{
 			var _d:Delay = cast(_items[i], Delay);

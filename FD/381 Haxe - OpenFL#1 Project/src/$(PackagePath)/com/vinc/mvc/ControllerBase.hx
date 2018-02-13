@@ -1,5 +1,4 @@
 package com.vinc.mvc;
-import openfl.display.Stage;
 
 /**
  * ...
@@ -8,7 +7,6 @@ import openfl.display.Stage;
 class ControllerBase
 {
 	public var idscreen:String;
-	public var openflstage:Stage;
 
 	public function new() 
 	{
@@ -17,6 +15,10 @@ class ControllerBase
 	
 	
 	public function init():Void
+	{
+		
+	}
+	public function preupdate() 
 	{
 		
 	}
@@ -40,6 +42,13 @@ class ControllerBase
 	{
 		
 	}
+	
+	public function onPressed(_id:String) 
+	{
+		
+	}
+	
+	
 	
 	
 	

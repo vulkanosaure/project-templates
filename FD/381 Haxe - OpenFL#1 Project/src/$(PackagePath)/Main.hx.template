@@ -52,6 +52,10 @@ class Main extends Sprite $(CSLB){
 	private function start():Void
 	{
 		trace("Main.start, debug:" + Constants.DEBUG_MODE);
+		
+		if (Constants.DEBUG_ACTIONRECORDER){
+			ActionRecorder.init(this.stage, Browser.getLocalStorage());			
+		}
 
 		params = this.stage.loaderInfo.parameters;
 		if (params == null) params = {};

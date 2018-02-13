@@ -37,7 +37,7 @@ class Ajax extends EventDispatcher{
 	
 	public var id:String;
 	
-	public var delayTimeout(default, set):Int = 5000;
+	public var delayTimeout(default, set):Null<Int> = 5000;
 	private var _completed:Bool;
 	private var _d:Delay;
 	public var debug(default, set):Bool = true;
@@ -129,7 +129,7 @@ class Ajax extends EventDispatcher{
 	public function encrypt(_tabkey:Array<String>):Void
 	{
 		var _tabvalues:Array<String> = new Array();
-		var _len:Int = _tabkey.length;
+		var _len:Null<Int> = _tabkey.length;
 		for (i in 0..._len) {
 			var _val:String = Reflect.field(varsIn, _tabkey[i]);
 			_tabvalues.push(_val);
@@ -152,7 +152,7 @@ class Ajax extends EventDispatcher{
 		}
 		else {
 			var _tabvalues:Array<String> = new Array();
-			var _len:Int = _tabkey.length;
+			var _len:Null<Int> = _tabkey.length;
 			for (i in 0..._len) _tabvalues.push(_obj[_tabkey[i]]);
 			
 			var _hash:String = Sha256.encode(_tabvalues.join(":") + ":" + ENCRYPTION_KEY);
@@ -217,7 +217,7 @@ class Ajax extends EventDispatcher{
 	}
 	
 	
-	function set_delayTimeout(value:Int):Int 
+	function set_delayTimeout(value:Null<Int>):Null<Int> 
 	{
 		return delayTimeout = value;
 	}

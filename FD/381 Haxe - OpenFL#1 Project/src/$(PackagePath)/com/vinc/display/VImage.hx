@@ -17,6 +17,7 @@ class VImage extends LayoutSprite
 	{
 		super();
 		
+		trace("new VIMage(" + _key + ")");
 		_img = new Image(assets.getTexture(_key));
 		addChild(_img);
 	}

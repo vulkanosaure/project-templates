@@ -1,12 +1,12 @@
 Angular.ng-template
 bam.vscode-file-templates
 brpaz.file-templates
-christian-kohler.path-intellisense
-dbankier.vscode-quick-select
-felixfbecker.php-debug
-geddski.macros
-infinity1207.angular2-switcher
-jmfirth.vsc-space-block-jumper
+christian-kohler.path-intellisense			OK
+dbankier.vscode-quick-select				NOPE
+felixfbecker.php-debug						OK
+geddski.macros								OK
+infinity1207.angular2-switcher				OK
+jmfirth.vsc-space-block-jumper				OK
 ms-vscode.resharper9-keybindings
 msjsdiag.debugger-for-chrome
 natewallace.angular2-inline

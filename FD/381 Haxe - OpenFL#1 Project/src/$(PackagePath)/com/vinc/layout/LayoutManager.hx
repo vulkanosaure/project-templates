@@ -38,8 +38,6 @@ class LayoutManager
 	
 	static private var _screenRect:Rectangle;
 	static private var _listResizeHandlers:Array<Void->Void>;
-
-	public static var devicePixelRatio:Float = 1;
 	
 	
 	
@@ -86,7 +84,7 @@ class LayoutManager
 	
 	
 	
-	static public function addContainer(_item:Sprite, _coeffResize:Float, _options:Object = null) :Void
+	static public function addContainer(_item:Sprite, _coeffResize:Null<Float>, _options:Object = null) :Void
 	{
 		if (_containers == null) {
 			_containers = new Array();
@@ -101,13 +99,13 @@ class LayoutManager
 	
 	static private function getUnitValue(str:String):Dynamic
 	{
-		var len:Int = str.length;
+		var len:Null<Int> = str.length;
 		if (str.substr(len - 2) == "px"){
-			var val:Int = Std.parseInt(str.substr(0, len - 2));
+			var val:Null<Int> = Std.parseInt(str.substr(0, len - 2));
 			return {value:val, unit:"px"};
 		}
 		else{
-			var val:Int = Std.parseInt(str.substr(0, len - 1));
+			var val:Null<Int> = Std.parseInt(str.substr(0, len - 1));
 			return {value:val, unit:"%"};
 		}
 	}
@@ -124,8 +122,8 @@ class LayoutManager
 			{
 				//trace(_key + " : " + _data[_key]);
 				
-				var _val:Int = Std.int(_data[_key]);
-				var _valfloat:Float = Std.parseFloat(_data[_key]);
+				var _val:Null<Int> = Std.int(_data[_key]);
+				var _valfloat:Null<Float> = Std.parseFloat(_data[_key]);
 				
 				
 				if (_key == "id") _item.idLayout = Std.string(_data[ _key]);
@@ -158,7 +156,7 @@ class LayoutManager
 		}
 		
 		var _parent:DisplayObjectContainer = _item;
-		var _indexof:Int = -1;
+		var _indexof:Null<Int> = -1;
 		while (true) {
 			_parent = _parent.parent;
 			if (Std.is(_parent, Sprite)) {
@@ -233,20 +231,20 @@ class LayoutManager
 		
 		//return;
 		
-		var _len:Int = _containers.length;
+		var _len:Null<Int> = _containers.length;
 		for (i in 0..._len) 
 		{
 			var _obj:Object = _containers[i];
 			
 			var _sp:Sprite = cast(_obj.item, Sprite);
-			var _coeffResize:Float = cast(_obj.coeffResize, Float);
+			var _coeffResize:Null<Float> = cast(_obj.coeffResize, Float);
 			var _options:Object = _obj.options;
 			resizeContainer(_sp, _coeffResize, _options);
 			
 		}
 		
 		
-		var _nbitem:Int = _items.length;
+		var _nbitem:Null<Int> = _items.length;
 		for (j in 0..._nbitem) 
 		{
 			var _ls:LayoutSprite = cast(_items[j], LayoutSprite);
@@ -255,7 +253,7 @@ class LayoutManager
 		
 		
 		//handlers
-		var _len:Int = (_listResizeHandlers == null) ? 0 : _listResizeHandlers.length;
+		var _len:Null<Int> = (_listResizeHandlers == null) ? 0 : _listResizeHandlers.length;
 		for (k in 0..._len) 
 		{
 			_listResizeHandlers[k]();
@@ -306,7 +304,7 @@ class LayoutManager
 	
 	
 	
-	static private function getContainerWidth(ls:LayoutSprite) :Float
+	static private function getContainerWidth(ls:LayoutSprite) :Null<Float>
 	{
 		/*
 		if (ls.containerWidth != null) return ls.containerWidth;
@@ -315,7 +313,7 @@ class LayoutManager
 		}
 		*/
 		
-		var rootdim:Float = _screenRect.width;
+		var rootdim:Null<Float> = _screenRect.width;
 		
 		if (ls.parent != null && !Std.is(ls, LayoutSprite)){
 			
@@ -326,14 +324,14 @@ class LayoutManager
 		else return _screenRect.width / ls.rootContainer.scaleX;
 		
 	}
-	static private function getContainerHeight(ls:LayoutSprite) :Float
+	static private function getContainerHeight(ls:LayoutSprite) :Null<Float>
 	{
 		/*
 		if (ls.containerHeight != null) return ls.containerHeight;
 		else return _screenRect.height / ls.rootContainer.scaleY;
 		*/
 		
-		var rootdim:Float = _screenRect.height;
+		var rootdim:Null<Float> = _screenRect.height;
 		
 		if (ls.parent != null && !Std.is(ls, LayoutSprite)){
 			
@@ -349,28 +347,28 @@ class LayoutManager
 	
 	
 	
-	static public function resizeContainer(_sp:Dynamic, _coeffResize:Float, _options:Object) :Void
+	static public function resizeContainer(_sp:Dynamic, _coeffResize:Null<Float>, _options:Object) :Void
 	{
 		var _mktteRect:Rectangle = new Rectangle(0, 0, _mktteSize.x, _mktteSize.y);
 		trace("_mktteSize : " + _mktteSize);
 		trace("_screenRect : " + _screenRect);
         
 		var _rect0:Rectangle = RectangleUtil.fit(_mktteRect, _screenRect, ScaleMode.SHOW_ALL);
-		var _scale0:Float = _rect0.width / _mktteRect.width;
+		var _scale0:Null<Float> = _rect0.width / _mktteRect.width;
 		
 		var _rect1:Rectangle = RectangleUtil.fit(_mktteRect, _screenRect, ScaleMode.NO_BORDER);
-		var _scale1:Float = _rect1.width / _mktteRect.width;
+		var _scale1:Null<Float> = _rect1.width / _mktteRect.width;
 		
-		var _scale:Float = _scale0 + _coeffResize * (_scale1 - _scale0);
+		var _scale:Null<Float> = _scale0 + _coeffResize * (_scale1 - _scale0);
 		
 		
 		if (_options != null){
 			if (_options["max-scale"]){
-				var _maxScale:Float = _options["max-scale"];
+				var _maxScale:Null<Float> = _options["max-scale"];
 				if (_scale > _maxScale) _scale = _maxScale;
 			}
 			if (_options["min-scale"]){
-				var _minScale:Float = _options["min-scale"];
+				var _minScale:Null<Float> = _options["min-scale"];
 				if (_scale < _minScale) _scale = _minScale;
 			}
 		

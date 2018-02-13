@@ -31,7 +31,7 @@ class NapeEntity
 	
 	
 	function set_space(value:Space):Space { 
-		var _len:Int = listBody.length;
+		var _len:Null<Int> = listBody.length;
 		if (_len == 0) throw new Error("no body defined");
 		
 		for (i in 0..._len) 
@@ -45,8 +45,8 @@ class NapeEntity
 	
 	public function updateGraphic() :Void
 	{
-		var _nbgraphic:Int = listGraphics.length;
-		var _nbbody:Int = listBody.length;
+		var _nbgraphic:Null<Int> = listGraphics.length;
+		var _nbbody:Null<Int> = listBody.length;
 		
 		for (i in 0..._nbbody) 
 		{

@@ -10,17 +10,17 @@ class GameItemFactory extends EventDispatcher
 {
 	private var _items:Array<IGameItemFactory>;
 	private var _liststeps:Array<Int>;
-	private var _laststep:Int;
+	private var _laststep:Null<Int>;
 	
 	
-	@:isVar public var progress(get, set):Int;
+	@:isVar public var progress(get, set):Null<Int>;
 	
-	@:isVar public var interval(get, set):Int;
-	private var _interval:Int;
-	public var firststep(default, set):Int;
+	@:isVar public var interval(get, set):Null<Int>;
+	private var _interval:Null<Int>;
+	public var firststep(default, set):Null<Int>;
 	
-	public var marginRight(default, set):Int;
-	public var marginLeft(default, set):Int;
+	public var marginRight(default, set):Null<Int>;
+	public var marginLeft(default, set):Null<Int>;
 	
 	private var _classItem:Class<IGameItemFactory>;
 	
@@ -44,7 +44,7 @@ class GameItemFactory extends EventDispatcher
 		if (_items == null) _items = new Array();
 		_liststeps = new Array();
 		
-		var _len:Int = _items.length;
+		var _len:Null<Int> = _items.length;
 		for (i in 0..._len) 
 		{
 			_items[i].destroy();
@@ -60,23 +60,23 @@ class GameItemFactory extends EventDispatcher
 	
 	
 	
-	function get_progress():Int 
+	function get_progress():Null<Int> 
 	{
 		return progress;
 	}
 	
-	function set_progress(value:Int):Int 
+	function set_progress(value:Null<Int>):Null<Int> 
 	{
 		progress = value;
 		return progress;
 	}
 	
-	function get_interval():Int 
+	function get_interval():Null<Int> 
 	{
 		return interval;
 	}
 	
-	function set_interval(value:Int):Int 
+	function set_interval(value:Null<Int>):Null<Int> 
 	{
 		_interval = value;
 		trace("set_interval(" + value+") : " + _interval);
@@ -84,15 +84,15 @@ class GameItemFactory extends EventDispatcher
 	}
 	
 	
-	function set_firststep(value:Int):Int 
+	function set_firststep(value:Null<Int>):Null<Int> 
 	{
 		return firststep = value;
 	}
 	
 	
-	function set_marginRight(value:Int):Int { return marginRight = value; }	
+	function set_marginRight(value:Null<Int>):Null<Int> { return marginRight = value; }	
 	
-	function set_marginLeft(value:Int):Int { return marginLeft = value; }	
+	function set_marginLeft(value:Null<Int>):Null<Int> { return marginLeft = value; }	
 	
 	
 	private function createObject():IGameItemFactory
@@ -127,22 +127,22 @@ class GameItemFactory extends EventDispatcher
 		
 		*/
 		
-		var _intervalfloat:Float;
+		var _intervalfloat:Null<Float>;
 		
-		var y:Float = progress + marginLeft;
+		var y:Null<Float> = progress + marginLeft;
 		_intervalfloat = (y - firststep) / interval;
-		var _nbintervalmin:Int = Math.ceil(_intervalfloat);
+		var _nbintervalmin:Null<Int> = Math.ceil(_intervalfloat);
 		if (_nbintervalmin < 0) _nbintervalmin = 0;
 		
 		y = progress + marginRight;
 		_intervalfloat = (y - firststep) / interval;
-		var _nbintervalmax:Int = Math.floor(_intervalfloat);
+		var _nbintervalmax:Null<Int> = Math.floor(_intervalfloat);
 		
 		//trace("_nbintervalmin : " + _nbintervalmin + ", _nbintervalmax : " + _nbintervalmax+" /// _items.length : "+_items.length);
 		
 		for (j in _nbintervalmin..._nbintervalmax) 
 		{
-			var _step:Int = interval * j + firststep;
+			var _step:Null<Int> = interval * j + firststep;
 			
 			var _item:IGameItemFactory = getItemByStep(_step);
 			if (_item == null) {
@@ -165,15 +165,15 @@ class GameItemFactory extends EventDispatcher
 		
 		//remove (both ways)
 		
-		var _len:Int = _liststeps.length;
+		var _len:Null<Int> = _liststeps.length;
 		_len = _liststeps.length;
 		for (i in 0..._len)
 		{
-			var i2:Int = _len - i - 1;
+			var i2:Null<Int> = _len - i - 1;
 			
 			//trace("- i2 : " + i2);
-			var _step:Int = _liststeps[i2];
-			var _localstep:Int = _step - progress;
+			var _step:Null<Int> = _liststeps[i2];
+			var _localstep:Null<Int> = _step - progress;
 			
 			if ((_localstep - marginLeft) < 0 || (_localstep > marginRight)) {
 				//trace(" +++ remove " + i2);
@@ -198,9 +198,9 @@ class GameItemFactory extends EventDispatcher
 		
 	}
 	
-	function getItemByStep(step:Int) :IGameItemFactory
+	function getItemByStep(step:Null<Int>) :IGameItemFactory
 	{
-		var _len:Int = _items.length;
+		var _len:Null<Int> = _items.length;
 		for (i in 0..._len) 
 		{
 			if (_liststeps[i] == step) return _items[i];

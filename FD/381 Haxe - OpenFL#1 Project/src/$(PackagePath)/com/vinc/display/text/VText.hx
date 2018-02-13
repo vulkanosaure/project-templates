@@ -1,5 +1,8 @@
 package com.vinc.display.text;
 import com.vinc.layout.LayoutSprite;
+#if html5
+import js.Lib;
+#end
 import openfl.utils.Object;
 import starling.text.TextField;
 import starling.text.TextFieldAutoSize;
@@ -13,12 +16,9 @@ import starling.utils.VAlign;
 class VText extends LayoutSprite
 {
 	public var text:String;
-	/*
-	public var textWidth:Int = 300;
-	public var textHeight:Int = 50;
-	*/
-	public var textWidth:Int = null;
-	public var textHeight:Int = null;
+	
+	public var textWidth:Null<Int> = null;
+	public var textHeight:Null<Int> = null;
 	
 	private var options:Object;
 	var _tf:TextField;

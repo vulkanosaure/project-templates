@@ -41,7 +41,7 @@ class Navigation
 	} 
 	
 	
-	public static function addScreen(_screenparent:String, _idscreen:String, _listDefIn:Array<NavigationDef>, _listDefOut:Array<NavigationDef>, _delay:Float = 0, _tabID:Array<String> = null):Void
+	public static function addScreen(_screenparent:String, _idscreen:String, _listDefIn:Array<NavigationDef>, _listDefOut:Array<NavigationDef>, _delay:Null<Float> = 0, _tabID:Array<String> = null):Void
 	{
 		
 		var _instance:NavigationInstance = getInstance(_screenparent);
@@ -115,7 +115,7 @@ class Navigation
 	
 	static private function getTabConflict(sp:Sprite):Array<Dynamic>
 	{
-		var _len:Int = _listClickableConflicts.length;
+		var _len:Null<Int> = _listClickableConflicts.length;
 		
 		for (i in 0..._len) 
 		{
@@ -171,7 +171,7 @@ class Navigation
 	
 	
 	
-	public static function gotoScreen(_screenparent:String, _idscreen:String, _delayLock:Float = 1500, _noAnim:Bool = false):Void
+	public static function gotoScreen(_screenparent:String, _idscreen:String, _delayLock:Null<Float> = 1500, _noAnim:Bool = false):Void
 	{
 		trace("gotoScreen(" + _screenparent + ", " + _idscreen + ")");
 		var _instance:NavigationInstance = getInstance(_screenparent);

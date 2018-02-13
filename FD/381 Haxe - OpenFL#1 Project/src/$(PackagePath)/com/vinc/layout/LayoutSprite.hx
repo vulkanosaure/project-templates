@@ -12,23 +12,23 @@ class LayoutSprite extends Sprite
 	public var debugLayout:Bool = false;
 	public var idLayout:String;
 	
-	public var marginLeft:Int;
-	public var marginTop:Int;
-	public var marginRight:Int;
-	public var marginBottom:Int;
+	public var marginLeft:Null<Int>;
+	public var marginTop:Null<Int>;
+	public var marginRight:Null<Int>;
+	public var marginBottom:Null<Int>;
 	
-	public var centerH:Float;
-	public var centerV:Float;
+	public var centerH:Null<Float>;
+	public var centerV:Null<Float>;
 	
-	public var layoutWidth:Int;
-	public var layoutWidthPercent:Int;
-	public var layoutHeight:Int;
-	public var layoutHeightPercent:Int;
+	public var layoutWidth:Null<Int>;
+	public var layoutWidthPercent:Null<Int>;
+	public var layoutHeight:Null<Int>;
+	public var layoutHeightPercent:Null<Int>;
 	
 	public var isRoot:Bool;
 	
-	public var containerWidth:Int;
-	public var containerHeight:Int;
+	public var containerWidth:Null<Int>;
+	public var containerHeight:Null<Int>;
 	
 	public var rootContainer:Sprite;
 	

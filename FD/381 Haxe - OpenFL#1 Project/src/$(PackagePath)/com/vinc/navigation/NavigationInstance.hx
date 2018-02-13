@@ -24,7 +24,7 @@ class NavigationInstance {
 	public var curscreen(get,null):String = "";
 	public var prevscreen(get,null):String = "";
 	
-	private var _delay:Float;
+	private var _delay:Null<Float>;
 	private var _listid:Array<String>;
 	
 	private var _listCallbackGoto:Object;
@@ -43,7 +43,7 @@ class NavigationInstance {
 	}
 	
 	
-	public function addScreen(_idscreen:String, _listDefIn:Array<NavigationDef>, _listDefOut:Array<NavigationDef>, _delay:Float, _tabID:Array<String>):Void
+	public function addScreen(_idscreen:String, _listDefIn:Array<NavigationDef>, _listDefOut:Array<NavigationDef>, _delay:Null<Float>, _tabID:Array<String>):Void
 	{
 		if (_listDefIn == null) _listDefIn = [];
 		if (_listDefOut == null) _listDefOut = [];
@@ -115,7 +115,7 @@ class NavigationInstance {
 	{
 		if (e.keyCode >= 96 && e.keyCode <= 105) {
 			trace("NavigationInstance.onKeydown " + e.keyCode);
-			var _index:Int = e.keyCode - 96;
+			var _index:Null<Int> = e.keyCode - 96;
 			var _idscreen:String;
 			
 			if (_index == 0) _idscreen = "";
@@ -140,7 +140,7 @@ class NavigationInstance {
 		
 		
 		
-		var _nbscreen:Int = (_listid != null) ? _listid.length : 0;
+		var _nbscreen:Null<Int> = (_listid != null) ? _listid.length : 0;
 		
 		for (_key in _dataItem) 
 		{
@@ -197,7 +197,7 @@ class NavigationInstance {
 	
 	
 	
-	public function gotoScreen(_idscreen:String, _delayLock:Float = 1500, _noAnim:Bool = false):Void
+	public function gotoScreen(_idscreen:String, _delayLock:Null<Float> = 1500, _noAnim:Bool = false):Void
 	{
 		/*
 		if (_locked) {
@@ -206,7 +206,7 @@ class NavigationInstance {
 		}
 		*/
 		
-		trace("NavigationInstance.gotoScreen(" + _idscreen + ", currscreen : " + curscreen);
+		trace("NavigationInstance.gotoScreen(" + _idscreen + ", currscreen : " + curscreen + ", _noAnim : " + _noAnim);
 		
 		if (curscreen == _idscreen) {
 			//trace("return ==");
@@ -241,6 +241,7 @@ class NavigationInstance {
 				_listItemOut.push(_obj);
 			}
 		}
+		
 		
 		var _list:Array<Object> = getItemByScreen(_idscreen);
 		for (i in 0..._list.length) 
@@ -280,12 +281,10 @@ class NavigationInstance {
 		
 		DelayManager.add(GROUP + _idgroup, _delay * 1000, function(_prevscreen:String):Void {
 			
-			trace("idscreen : " + _idscreen);
 			setAllScreenVisible(false);
 			if (_idscreen != "") {
 				setScreenVisible(_idscreen, true);
 			}
-			trace("test");
 			
 			if(_idscreen != ""){
 				if (_listCallbackGotoTransition != null && (_listCallbackGotoTransition[_idscreen] != null || _listCallbackGotoTransition["all"] != null)) {
@@ -356,11 +355,11 @@ class NavigationInstance {
 	
 	
 	
-	private function getLastTimeAnim(_id:String, _listitem:Array<Object>):Float
+	private function getLastTimeAnim(_id:String, _listitem:Array<Object>):Null<Float>
 	{
 		var _value:Bool = false;
 		if (_listitem.length > 0) {
-			var _lastindex:Int = _listitem.length - 1;
+			var _lastindex:Null<Int> = _listitem.length - 1;
 			var _obj:Object = _listitem[_lastindex];
 			var _def:NavigationDef = (_value) ? cast(_obj["defIn"], NavigationDef) : cast(_obj["defOut"], NavigationDef);
 			return _def.time;
@@ -368,7 +367,7 @@ class NavigationInstance {
 		else {
 			var _obj:Object = _data[_id];
 			var _list:Array<NavigationDef> = (_value) ? _obj["listDefIn"] : _obj["listDefOut"];
-			var _lastindex:Int = _list.length - 1;
+			var _lastindex:Null<Int> = _list.length - 1;
 			if (_lastindex >= 0) {
 				var _def:NavigationDef = cast(_list[_lastindex], NavigationDef);
 				return _def.time;
@@ -386,9 +385,13 @@ class NavigationInstance {
 		if (_obj == null) throw new Error("screen id '" + _id + "' doesn't exist");
 		var _list:Array<NavigationDef> = (_value) ? _obj["listDefIn"] : _obj["listDefOut"];
 		
+		if (!_value){
+			//trace("items out : " + _list);
+		}
+		
 		//trace("showScreen(" + _id + ", " + _value+")");
 		
-		var _len:Int = _list.length;
+		var _len:Null<Int> = _list.length;
 		for (i in 0..._len) 
 		{
 			var _def:NavigationDef = cast(_list[i], NavigationDef);
@@ -396,7 +399,7 @@ class NavigationInstance {
 				DelayManager.add("", _delay * 1000, _def.callback, [_def.id]);
 			}
 			
-			var _time:Float = (_def.time == null) ? 0.6 : _def.time;
+			var _time:Null<Float> = (_def.time == null) ? 0.6 : _def.time;
 			animate(_def.id, _def.value, _def.side, _delay, _def.dist, _def.fade, _time, _def.easing, _noAnim);
 			_delay += _def.delay;
 			//trace("- showScreen " + _def.delay);
@@ -406,7 +409,7 @@ class NavigationInstance {
 	
 	private function showItems(_listitem:Array<Object>, _value:Bool, _noAnim:Bool = false):Void 
 	{
-		var _len:Int = _listitem.length;
+		var _len:Null<Int> = _listitem.length;
 		for (i in 0..._len) 
 		{
 			var _obj:Object = _listitem[i];
@@ -445,7 +448,7 @@ class NavigationInstance {
 	
 	private function setAllScreenVisible(_value:Bool):Void
 	{
-		var _len:Int = (_listid != null) ? _listid.length : 0;
+		var _len:Null<Int> = (_listid != null) ? _listid.length : 0;
 		for (i in 0..._len)
 		{
 			var _id:String = _listid[i];
@@ -459,7 +462,7 @@ class NavigationInstance {
 		if (_obj == null) return;
 		
 		var _tabID:Array<String> = _obj.tabID;
-		var _len:Int = _tabID.length;
+		var _len:Null<Int> = _tabID.length;
 		for (i in 0..._len) 
 		{
 			setItemVisible(_tabID[i], _value);
@@ -498,7 +501,7 @@ class NavigationInstance {
 	
 	
 	
-	public function animate(__obj:Dynamic, _value:Bool, _side:String, _d:Float, __distslide:Float = 700, _fade:Bool = false, __timeAnim:Float = 0.6, __easing:IEasing = null, __noAnim:Bool = false):Void 
+	public function animate(__obj:Dynamic, _value:Bool, _side:String, _d:Null<Float>, __distslide:Null<Float> = 700, _fade:Bool = false, __timeAnim:Null<Float> = 0.6, __easing:IEasing = null, __noAnim:Bool = false):Void 
 	{
 		//trace("animate(" + __obj + ", " + _value+", " + _side+", " + _d + ", " + __distslide+", " + _fade+", " + __timeAnim + ")");
 		
@@ -518,12 +521,12 @@ class NavigationInstance {
 		if (_value && !_obj.visible) _obj.visible = true;
 		//_obj = cast(_obj.getChildAt(0), Sprite);
 		
-		var _timeanim:Float = __timeAnim;
+		var _timeanim:Null<Float> = __timeAnim;
 		//trace("_timeanim : " + _timeanim);
 		
 		if (_fade) {
-			var _alphasrc:Float = (_value) ? 0 : 1;
-			var _alphadest:Float = (_value) ? 1 : 0;
+			var _alphasrc:Null<Float> = (_value) ? 0 : 1;
+			var _alphadest:Null<Float> = (_value) ? 1 : 0;
 			_obj.alpha = _alphasrc;
 			//_twm.tween(_obj, "alpha", NaN, _alphadest, _timeanim, _d);
 			Actuate.tween(_obj, _timeanim, { alpha : _alphadest } ).delay(_d);
@@ -555,8 +558,8 @@ class NavigationInstance {
 			}
 			
 			
-			var _src:Float;
-			var _dst:Float;
+			var _src:Null<Float>;
+			var _dst:Null<Float>;
 			
 			if (_value) {
 				_src = 0;
@@ -577,10 +580,10 @@ class NavigationInstance {
 		}
 		
 		else if (_side != NavigationDef.NONE) {
-			var _distslide:Float = __distslide;
+			var _distslide:Null<Float> = __distslide;
 			var _prop:String = (_side == NavigationDef.LEFT || _side == NavigationDef.RIGHT) ? "x" : "y";
-			var _src:Float;
-			var _dst:Float;
+			var _src:Null<Float>;
+			var _dst:Null<Float>;
 			
 			if (_value) {
 				_src = (_side == NavigationDef.LEFT || _side == NavigationDef.TOP) ? -_distslide : _distslide;
