@@ -1,12 +1,10 @@
-Angular.ng-template
-bam.vscode-file-templates
-brpaz.file-templates
-christian-kohler.path-intellisense			OK
-dbankier.vscode-quick-select				NOPE
-felixfbecker.php-debug						OK
-geddski.macros								OK
-infinity1207.angular2-switcher				OK
-jmfirth.vsc-space-block-jumper				OK
+bajdzis.vscode-twig-pack
+bmewburn.vscode-intelephense-client
+christian-kohler.path-intellisense
+felixfbecker.php-debug
+geddski.macros
+infinity1207.angular2-switcher
+jmfirth.vsc-space-block-jumper
 ms-vscode.resharper9-keybindings
 msjsdiag.debugger-for-chrome
 natewallace.angular2-inline
@@ -15,7 +13,6 @@ rbbit.typescript-hero
 Rubymaniac.vscode-paste-and-indent
 steoates.autoimport
 tickleforce.scrolloff
-vscodevim.vim
+vulkanosaure.vscode-quick-select2
 vsmobile.cordova-tools
 wmaurer.vscode-jumpy
-xabikos.ReactSnippets

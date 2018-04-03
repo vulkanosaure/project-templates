@@ -3,8 +3,9 @@
 { "key": "ctrl+q", "command": "editor.action.addCommentLine", "when": "editorTextFocus && !editorReadonly" },
 { "key": "ctrl+shift+q", "command": "editor.action.blockComment", "when": "editorTextFocus && !editorReadonly" },
 
-{ "key": "f4", "command": "extension.goToDeclaration2", "when": "editorHasDefinitionProvider && !isInEmbeddedEditor" },
-// { "key": "f4", "command": "editor.action.goToDeclaration", "when": "editorHasDefinitionProvider && !isInEmbeddedEditor" },
+{
+	// "key": "f5", "command": "extension.goToDeclaration2", "when": "editorHasDefinitionProvider && !isInEmbeddedEditor" },
+{ "key": "f4", "command": "editor.action.goToDeclaration", "when": "editorHasDefinitionProvider && !isInEmbeddedEditor" },
 
 { "key": "ctrl+f4", "command": "editor.action.goToImplementation", "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor" },
 { "key": "alt+f4", "command": "editor.action.goToImplementation", "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor" },
@@ -284,10 +285,7 @@
 {"key": "alt+i", "command": "extension.switchTemplate"},
 {"key": "alt+o", "command": "extension.switchStyle"},
 
-{
-	"key": ".",
-	"command": ""
-},
+
 {
 	"key": "ctrl+f1",
 	"command": "workbench.action.files.newFile"
@@ -300,10 +298,6 @@
 	"key": "f8",
 	"command": "workbench.action.debug.continue",
 	"when": "inDebugMode"
-},
-{
-	"key": "f5",
-	"command": "-workbench.action.debug.continue",
-	"when": "inDebugMode"
 }
+
 ]

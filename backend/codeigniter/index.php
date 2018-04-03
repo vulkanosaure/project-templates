@@ -54,24 +54,28 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 
+ include_once './vendor/autoload.php';
+
 
 if (isset($_SERVER) && isset($_SERVER['SERVER_NAME']))
 {
-	switch($_SERVER['SERVER_NAME']) {
-		case 'example.com/apps/elanguage_v2/backend':
-			define('ENVIRONMENT', 'production');
-		break;
-		/* 
-		case 'mydancecompany.dowino.com':
-			define('ENVIRONMENT', 'testing');
-		break;
-		 */
-		default:
-		case 'localhost/apps/elanguage_v2/backend':
-			define('ENVIRONMENT', 'development');
-		break;
-		
+	echo $_SERVER['SERVER_NAME']."---";
+	
+	$srvname = $_SERVER['SERVER_NAME'];
+	
+	if(substr($srvname, 0, 8) == "192.168."){
+		define('ENVIRONMENT', 'remotelocal');
 	}
+	else if($srvname == 'appinstrasbourg.com'){
+		define('ENVIRONMENT', 'testing');
+	}
+	else if($srvname == 'localhost'){
+		define('ENVIRONMENT', 'development');
+	}
+	else{
+		throw new Error("server name unknown");
+	}
+	
 }
 else
 {/*  */
@@ -92,6 +96,11 @@ else
 switch (ENVIRONMENT)
 {
 	case 'development':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+	break;
+	
+	case 'remotelocal':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
 	break;

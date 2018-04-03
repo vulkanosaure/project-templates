@@ -6,14 +6,15 @@
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,
-    "**/.DS_Store": true
+		"**/.DS_Store": true,
+		"var/**" : true
   },
   
   "workbench.editor.enablePreview": false,
   
 	"window.zoomLevel": 0,
-  "editor.snippetSuggestions": "top", /*,
-  "editor.parameterHints": false*/
+  "editor.snippetSuggestions": "top",
+  //"editor.parameterHints": false,
 
   "search.exclude": {
     "**/node_modules": true,
@@ -102,5 +103,12 @@
 		"src/assets"
 		
 	],
-	"terminal.integrated.cwd": "D:/DEV/PROJECT_WAMP"
+	//"terminal.integrated.cwd": "C:/DEV/PROJECT_WAMP",
+	"workbench.startupEditor": "newUntitledFile",
+	"php.suggest.basic": false,
+	// "php.executablePath": "C:/wamp64/bin/php/php7.1.9/php.exe",
+	"files.associations": {
+		"*.html.twig": "html"
+	},
+	"emmet.showExpandedAbbreviation": "never"
 }

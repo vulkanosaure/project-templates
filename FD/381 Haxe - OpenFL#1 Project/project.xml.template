@@ -27,4 +27,7 @@
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->
 	
+	<!-- change bin output dir-->
+	<!--<config:html5 output-directory="../../SRC/bin-haxe" />-->
+	
 </project>

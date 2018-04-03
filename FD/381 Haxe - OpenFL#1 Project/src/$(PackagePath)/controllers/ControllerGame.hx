@@ -148,23 +148,66 @@ class ControllerGame extends ControllerBase
 	
 	
 	
+	
+	
+	
 	private function feedFunction(_indexGeneration:Null<Int>):Array<DataProgressItem>
 	{
 		trace("feedFunction " + _indexGeneration);
 		
 		var _counterPeriodicite:Int = 0;
 		var _periodicite:Int = 1;
+		var _historic:Array<Int> = [];
 		
 		var output:Array<DataProgressItem> = [];
 		for (i in 0...5000){
 			_counterPeriodicite++;
 			if (_counterPeriodicite == _periodicite){
 				
-				_periodicite = Math.round(Math2.random(80, 50, 1));
+				_periodicite = Math.round(Math2.random(30, 70, 1));
 				_counterPeriodicite = 0;
 				
-				var type:Null<Int> = 0;
-				//var x:Null<Int> = Std.int(Math2.random( -Constants.BORNE_SIDE, Constants.BORNE_SIDE, 1));
+				//trace("_periodicite : " + _periodicite);
+				
+				var _proba:Array<Float> = [
+					1,			//TYPE_TARGET1
+					1,			//TYPE_TARGET2
+					1,			//TYPE_TARGET3
+					1,			//TYPE_ENEMY1
+					1,			//TYPE_ENEMY2
+				];
+				
+				var _lapInterdictions:Array<Int> = [
+					0,			//TYPE_TARGET1
+					0,			//TYPE_TARGET2
+					0,			//TYPE_TARGET3
+					0,			//TYPE_ENEMY1
+					0,			//TYPE_ENEMY2
+				];
+				
+				var type:Int = null;
+				
+				while (true){
+					
+					type = Math.round(Math2.getRandIndexProbability(_proba));
+					
+					var _lap:Int = _lapInterdictions[type];
+					if (_lap != 0){
+						
+						var _lastindex:Int = _historic.lastIndexOf(type);
+						var _date:Int = _historic.length - _lastindex;
+						//trace("_date : " + _date);
+						if (_lastindex == -1 || _date >= _lap) break;
+						
+					}
+					else break;
+				}
+				
+				_historic.push(type);
+				if (_historic.length > 10) _historic.shift();
+				//trace("_h : " + _historic);
+				
+				
 				var x:Int = 0;
 				var y:Int = 0;
 				
