@@ -6,8 +6,8 @@
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,
-		"**/.DS_Store": true,
-		"var/**" : true
+		"**/.DS_Store": true
+		// "var/**" : true
   },
   
   "workbench.editor.enablePreview": false,
@@ -16,11 +16,15 @@
   "editor.snippetSuggestions": "top",
   //"editor.parameterHints": false,
 
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/dist": true
-  },
+"search.exclude": {
+	"**/node_modules": true,
+	"**/bower_components": true,
+	
+	//added for ionic2+
+	"**/platforms":true,
+	"**/www":true,
+	"**/.sourcemaps":true
+},
 
   // Controls if opened editors should show in tabs or not.
   "workbench.editor.showTabs": false,
@@ -110,5 +114,17 @@
 	"files.associations": {
 		"*.html.twig": "html"
 	},
-	"emmet.showExpandedAbbreviation": "never"
+	"emmet.showExpandedAbbreviation": "never",
+	
+	"phpunit.execPath": "./vendor/bin/simple-phpunit",
+	"phpunit.args": [
+	  "--configuration", "./phpunit.xml.dist"
+	],
+	"phpunit.preferRunClassTestOverQuickPickWindow": true,
+	"extensions.ignoreRecommendations": false,
+	"explorer.openEditors.visible": 0, // Default false
+	// "files.associations": {"*.php": "html"}  
+	
+	"angular2-swithcer.openSideBySide":true
+	
 }

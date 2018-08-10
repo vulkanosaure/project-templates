@@ -3,7 +3,7 @@
 { "key": "ctrl+q", "command": "editor.action.addCommentLine", "when": "editorTextFocus && !editorReadonly" },
 { "key": "ctrl+shift+q", "command": "editor.action.blockComment", "when": "editorTextFocus && !editorReadonly" },
 
-{
+
 	// "key": "f5", "command": "extension.goToDeclaration2", "when": "editorHasDefinitionProvider && !isInEmbeddedEditor" },
 { "key": "f4", "command": "editor.action.goToDeclaration", "when": "editorHasDefinitionProvider && !isInEmbeddedEditor" },
 
@@ -145,7 +145,8 @@
 {"key": "ctrl+0", "command": "extension.selectGroup"},
 {"key": "ctrl+9", "command": "extension.expandLineSelection2"},			//ctrl+i normalement
 {"key": "ctrl+shift+9", "command": "extension.expandLineSelection2"},			//ctrl+i normalement
-{"key": "f12", "command": "extension.format2"},
+// {"key": "f12", "command": "extension.format2"},
+{"key": "f10", "command": "extension.format2"},
  
 {"key": "ctrl+c", "command": "extension.copy_no_selection", "when": "editorTextFocus && !editorReadonly && !editorHasSelection"},
 {"key": "ctrl+x", "command": "extension.cut_no_selection", "when": "editorTextFocus && !editorReadonly && !editorHasSelection"},
@@ -298,6 +299,15 @@
 	"key": "f8",
 	"command": "workbench.action.debug.continue",
 	"when": "inDebugMode"
+},
+{
+	"key": "shift+alt+i",
+	"command": "typescriptHero.index.addImportUnderCursor",
+	"when": "editorTextFocus"
+},
+{
+	"key": "ctrl+alt+i",
+	"command": "-typescriptHero.index.addImportUnderCursor",
+	"when": "editorTextFocus"
 }
-
 ]
