@@ -21,9 +21,40 @@
 			"ini_set('display_errors', 'On');"
 		],
 		"description": "display server errors"
+	},
+	
+	
+	
+	//functionnal test sous symfony
+	
+	"func_test_symfony": {
+		"prefix": "testfunc",
+		"body": [
+			"",
+			"namespace Tests\\AppBundle\\Controller;\n",
+			"use Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase;\n",
+			"class $1ControllerTest extends WebTestCase",
+			"{",
+			"\tprivate \\$client;\n",
+			"\tprotected function setUp()\n\t{",
+			"\t\t\\$this->client = static::createClient([], [",	
+			"\t\t\t'PHP_AUTH_USER' => 'amir@residence-mixte.com',",
+			"\t\t\t'PHP_AUTH_PW'   => 'fmfcrm',",
+			"\t\t]);"
+			"\t}\n",
+			"\tpublic function test$2()\n\t{",
+			"\t\t\\$crawler = \\$this->client->request('GET', '$3');\n",
+			"\t\t//\\$this->assertContains('Title', \\$crawler->filter('h2')->text());",
+			"\t\t$4",
+			"\t\t//echo \"crawler : \".\\$crawler->text();",
+			"\t\t",
+			"\t}",
+			"}"
+		],
+		"description": "functional test under symfony"
 	}
 	
-	
+
 
 
 }
