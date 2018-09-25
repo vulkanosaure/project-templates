@@ -1,0 +1,90 @@
+/*
+<label class="toogle">
+  <input type="checkbox" value="1" checked>
+  <span class="slider round"></span>
+</label>
+*/
+
+
+$toogle-width: 33 !default;
+$toogle-height:18 !default;
+
+$toogle-bg-color-checked: #76BC21 !default;
+$toogle-bg-color-unchecked: #C10E1A !default;
+$toogle-fg-color-checked: white !default;
+$toogle-fg-color-unchecked: white !default;
+
+$toogle-radius: 20 !default;
+$toogle-time-transition: .35s !default;
+
+$toogle-slider-border-radius: 34px !default;
+$toogle-bg-border-radius: 50% !default;
+
+
+
+
+
+label.toogle {
+  position: relative;
+  display: inline-block;
+  width: #{$toogle-width}px;
+  height: #{$toogle-height}px;
+}
+
+/* Hide default HTML checkbox */
+label.toogle input {display:none;}
+
+/* The slider */
+label.toogle > span.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $toogle-bg-color-unchecked;
+  -webkit-transition: $toogle-time-transition;
+  transition: $toogle-time-transition;
+}
+
+
+$toogle-margin-side-y:(($toogle-height - $toogle-radius) / 2);
+$toogle-margin-side:(($toogle-height - $toogle-radius) / 2) !default;
+
+label.toogle > .slider:before {
+  position: absolute;
+  content: "";
+  height: #{$toogle-radius}px;
+  width: #{$toogle-radius}px;
+  left: #{$toogle-margin-side}px;
+  bottom: #{$toogle-margin-side-y}px;
+  background-color: $toogle-fg-color-checked;
+  -webkit-transition: $toogle-time-transition;
+  transition: $toogle-time-transition;
+}
+
+label.toogle > input[checked] + .slider {
+  background-color: $toogle-bg-color-checked;
+}
+
+label.toogle > input:focus + .slider { 
+  box-shadow: 0 0 1px $toogle-bg-color-checked;
+}
+
+
+$toogle-dist-slide: $toogle-width - $toogle-radius - $toogle-margin-side * 2;
+
+label.toogle > input[checked] + .slider:before {
+  -webkit-transform: translateX(#{$toogle-dist-slide}px);
+  -ms-transform: translateX(#{$toogle-dist-slide}px);
+  transform: translateX(#{$toogle-dist-slide}px);
+}
+
+/* Rounded sliders */
+label.toogle > .slider.round {
+  border-radius: $toogle-slider-border-radius;
+}
+
+label.toogle > .slider.round:before {
+  border-radius: $toogle-bg-border-radius;
+}

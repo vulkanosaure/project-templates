@@ -1,0 +1,83 @@
+/*
+<label class="checkbox-label">my label
+	<input type="checkbox" checked><span class="checkbox-checkmark"></span>
+</label>
+*/
+
+
+$checkbox-fg-color: red !default;
+$checkbox-fg-thickness: 1px !default;
+$checkbox-fg-left: 3px !default;
+$checkbox-fg-top: 0px !default;
+$checkbox-bg-color: transparent !default;
+$checkbox-bg-border-color: black !default;
+$checkbox-bg-border-radius: 3px !default;
+$checkbox-bg-border-thickness: 1px !default;
+$checkbox-bg-width: 14px !default;
+$checkbox-bg-height: 14px !default;
+
+
+
+
+
+/* Hide the browser's default checkbox */
+input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+input[type=checkbox] + span.checkbox-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: $checkbox-bg-width;
+  width: $checkbox-bg-height;
+	background-color: $checkbox-bg-color;
+	
+	border: #{$checkbox-bg-border-thickness} solid $checkbox-bg-border-color;
+	box-sizing: border-box;
+	border-radius: #{$checkbox-bg-border-radius};
+}
+
+/* On mouse-over, add a grey background color */
+/* 
+.cb-container:hover input ~ .checkmark {
+  background-color: transparent;
+}
+*/
+
+/* When the checkbox is checked, add a blue background */
+/* 
+.cb-container input:checked ~ .checkmark {
+  background-color: #53ACB8;
+}
+ */
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+input[type=checkbox] + span.checkbox-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+input[type=checkbox]:checked ~ span.checkbox-checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+span.checkbox-checkmark:after {
+  left: $checkbox-fg-left;
+  top: $checkbox-fg-top;
+  width: $checkbox-bg-width * 0.25;
+  height: ($checkbox-bg-height * 0.5);
+  border: solid $checkbox-fg-color;
+  border-width: 0 #{$checkbox-fg-thickness} #{$checkbox-fg-thickness} 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+

@@ -1,4 +1,5 @@
-import { routing } from './app.routes';
+import { routes } from './app.routes';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,7 +17,11 @@ import { HeaderComponent } from 'src/app/component/header/header.component';
   ],
   imports: [
 		BrowserModule,
-		routing,
+		RouterModule.forRoot(routes, {
+			useHash: true,
+			// initialNavigation: false,
+			// enableTracing: true,
+		})
   ],
   providers: [],
   bootstrap: [AppComponent]

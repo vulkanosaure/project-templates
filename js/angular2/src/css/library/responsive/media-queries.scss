@@ -1,0 +1,50 @@
+$width_xs : 400;
+$width_sm : 576;
+$width_md : 768;
+$width_lg : 992;
+$width_xl : 1200;
+
+
+@mixin xs{
+	@media all and (max-width: #{$width_xs}px) {
+		@content;
+	}
+}
+@mixin sm{
+	@media all and (max-width: #{$width_sm}px) {
+		@content;
+	}
+}
+
+@mixin md{
+	@media all and (max-width: #{$width_md}px) {
+		@content;
+	}
+}
+
+@mixin lg{
+	@media all and (min-width: #{$width_md}px) and (max-width: #{$width_xl}px) {
+		@content;
+	}
+}
+
+
+@mixin xl{
+	@media all and (min-width: #{$width_xl}px) {
+		@content;
+	}
+}
+
+
+@mixin retina2{
+	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+		@content;
+	}
+}
+@mixin retinaBg($file, $width, $height){
+	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+		background-image:url('#{$file}@2x.png');
+		background-size:$width $height;
+	}
+}
+

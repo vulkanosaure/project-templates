@@ -1,1 +1,2 @@
-<router-outlet (window:keydown)="keydownglobal($event)"></router-outlet>
+<router-outlet></router-outlet>
+<app-router-menu *ngIf='env.debug' [routes]='routes'></app-router-menu>
