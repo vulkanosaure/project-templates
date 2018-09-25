@@ -24,6 +24,39 @@
 			"}"
 		],
 		"description": "For loop"
+	},
+	
+	
+	"log" : {
+		"prefix": "log",
+		"body": [
+			"console.log(${TM_SELECTED_TEXT});"
+		],
+		"description": "console log"
+	},
+	
+	
+	"foreach": {
+		"prefix": "foreach",
+		"body": [
+			"${1:array}.forEach((${2:item}:${3:any}) => {",
+				"\t$4",
+				"\t",
+			"}"
+		],
+		"description": "foreach"
+	},
+	
+	
+	"Set timeout": {
+		"prefix": "settimeout",
+		"body": [
+			"setTimeout(function() {",
+			"\t$2",
+			"}.bind(this), ${1:1000});"
+		],
+		"description": "set timeout"
 	}
-
+	}
+	
 }

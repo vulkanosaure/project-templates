@@ -1,13 +1,12 @@
 {
-
-
+	
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,
-		"**/.DS_Store": true
-		// "var/**" : true
+		"**/.DS_Store": true,
+		//"src/**" : true
   },
   
   "workbench.editor.enablePreview": false,
@@ -19,19 +18,32 @@
 "search.exclude": {
 	"**/node_modules": true,
 	"**/bower_components": true,
+	"**/screenshots": true,
+	"**/dist": true,
+	"**/failures": true,
 	
 	//added for ionic2+
 	"**/platforms":true,
-	"**/www":true,
+	// "**/www":true,
 	"**/.sourcemaps":true
 },
+
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true,
+		"**/screenshots/**" : true,
+		"**/deploy/**" : true,
+		"**/dist/**" : true,
+		"**/failures/**" : true,
+	},
 
   // Controls if opened editors should show in tabs or not.
   "workbench.editor.showTabs": false,
   
 
   "editor.minimap.enabled": false,
-  "workbench.statusBar.visible": false,
+	"workbench.statusBar.visible": true,
   "workbench.activityBar.visible": false,
   "window.menuBarVisibility": "toggle",
   "workbench.sideBar.location": "left",
@@ -47,7 +59,6 @@
   "editor.renderWhitespace": "none",
 	"editor.trimAutoWhitespace": false,
 	
-	"scrolloff.scrolloff": 10,
 	
 	
 	"macros": {
@@ -101,10 +112,15 @@
 		
 	},
 	"css_peek.exclude": [
-		"node_modules",
-		"bower_components",
-		"e2e",
-		"src/assets"
+		"node_modules/",
+		"bower_components/",
+		"e2e/",
+		"src/assets/",
+		".vscode/",
+		"deploy/",
+		"dist/",
+		"failures/",
+		"screenshots/"
 		
 	],
 	//"terminal.integrated.cwd": "C:/DEV/PROJECT_WAMP",
@@ -125,6 +141,44 @@
 	"explorer.openEditors.visible": 0, // Default false
 	// "files.associations": {"*.php": "html"}  
 	
-	"angular2-swithcer.openSideBySide":true
+	"angular2-swithcer.openSideBySide": true,
+	"typescript.tsdk": "C:/Users/VINC/AppData/Roaming/npm/node_modules/typescript/lib",
 	
+	
+	"launch" : {
+		"configurations": [
+			{
+				"name": "chrome angular",
+				"type": "chrome",
+				"request": "launch",
+				"url": "http://localhost:4200",
+				"webRoot": "${workspaceFolder}",
+				"sourceMaps": true
+			},
+			{
+				"name": "Debug js (launch)",
+				"type": "chrome",
+				"request": "launch",
+				"url" : "http://autospot.local",
+				"address": "localhost",
+				"port": 9333,
+				"sourceMaps": false,
+				"webRoot": "${workspaceRoot}"
+			}
+		]
+	},
+	
+	
+	"markdown.styles": [],
+	
+	"path-intellisense.mappings": {
+		"assets" : "${workspaceRoot}/src/assets",
+		"library" : "${workspaceRoot}/src/css/library"
+	},
+	"path-intellisense.autoSlashAfterDirectory": false,
+	"scrolloff.alwaysCenter": false,
+	"scrolloff.scrolloff": 5,
+	
+	"files.autoSave": "off",
+	"explorer.confirmDragAndDrop": false
 }

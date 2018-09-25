@@ -120,7 +120,7 @@
  */
  
  
- 
+/*  
 {"key": "ctrl+o", "command": "extension.selectCurlyBrackets", "when" : "editorTextFocus"},
 {"key": "ctrl+shift+o", "command": "extension.selectCurlyBracketsBack", "when" : "editorTextFocus"},
 {"key": "ctrl+i","command": "extension.selectParenthesis", "when" : "editorTextFocus"},
@@ -139,6 +139,7 @@
 {"key": "ctrl+shift+8", "command": "-extension.selectSquareBracketsBack", "when" : "editorTextFocus"},
 {"key": "ctrl+7", "command": "-extension.selectDoubleQuote", "when" : "editorTextFocus"},
 {"key": "ctrl+shift+7", "command": "-extension.selectDoubleQuoteBack", "when" : "editorTextFocus"},
+ */
 //
 
 
@@ -146,7 +147,8 @@
 {"key": "ctrl+9", "command": "extension.expandLineSelection2"},			//ctrl+i normalement
 {"key": "ctrl+shift+9", "command": "extension.expandLineSelection2"},			//ctrl+i normalement
 // {"key": "f12", "command": "extension.format2"},
-{"key": "f10", "command": "extension.format2"},
+{
+	"key": "f12", "command": "extension.format2"},
  
 {"key": "ctrl+c", "command": "extension.copy_no_selection", "when": "editorTextFocus && !editorReadonly && !editorHasSelection"},
 {"key": "ctrl+x", "command": "extension.cut_no_selection", "when": "editorTextFocus && !editorReadonly && !editorHasSelection"},
@@ -309,5 +311,15 @@
 	"key": "ctrl+alt+i",
 	"command": "-typescriptHero.index.addImportUnderCursor",
 	"when": "editorTextFocus"
+},
+{
+	"key": "f5",
+	"command": "workbench.action.debug.restart",
+	"when": "inDebugMode"
+},
+{
+	"key": "ctrl+shift+f5",
+	"command": "-workbench.action.debug.restart",
+	"when": "inDebugMode"
 }
 ]

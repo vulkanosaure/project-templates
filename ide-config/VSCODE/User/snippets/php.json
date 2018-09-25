@@ -24,6 +24,15 @@
 	},
 	
 	
+	"maxtime": {
+		"prefix": "maxtime",
+		"body": [
+			"ini_set('max_execution_time', ${1:2});"
+		],
+		"description": "display server errors"
+	},
+	
+	
 	
 	//functionnal test sous symfony
 	
