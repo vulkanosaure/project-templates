@@ -1,0 +1,60 @@
+/*__________________________________________________________*/
+/* generic */
+
+
+button{
+	background-color:transparent;
+	border:0;
+	cursor:pointer;
+	
+	&:active{
+		transform: translateY(4px);
+	}
+}
+
+textarea:focus, input:focus, button:focus{
+	outline: none;
+}
+
+
+
+/*__________________________________________________________*/
+
+a.btn{
+	background-image:url('/assets/images/ui/btns/btn_bg.png');
+	width:306px; height:76px;
+	line-height: 76px;
+	display:block;
+	text-align:center;
+	cursor:pointer;
+	
+	color:#F4D64B;
+	font-family:'NexaBold';
+	font-size:24px;
+	letter-spacing:0px;
+	text-align:center;
+	
+	&:active{
+		transform: translateY(4px);
+	}
+}
+
+
+/* 
+button.btn_valid_input{
+	background-image:url('/assets/images/ui/btns/btn_valid_input.png');
+	width:77px; height:82px;
+}
+
+a.btn_no{
+	background-image:url('/assets/images/ui/btns/btn_no_bg.png');
+	width:306px; height:76px;
+}
+a.btn_yes{
+	background-image:url('/assets/images/ui/btns/btn_yes_bg.png');
+	width:306px; height:76px;
+}
+*/
+
+
+
