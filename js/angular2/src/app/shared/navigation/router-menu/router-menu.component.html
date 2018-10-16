@@ -1,0 +1,25 @@
+<nav (window:keydown)="keydown($event)" [class.hidden]='hidden'>
+    
+
+	<b>RouterMenu :</b><br />
+	<div *ngFor="let item of routes">
+
+		<a *ngIf="!item.outlet" (click)="onclick(item)">{{item.path}}</a>
+	</div>
+	
+	<br />
+	<b>OUTLETS :</b><br />
+	<div *ngFor="let outlet of listOutlet">
+		
+		<b>{{outlet}}</b><br />
+		
+		<div *ngFor="let item of routes">	
+			<a *ngIf="item.outlet==outlet" (click)="onclick(item)">{{item.path}}</a>
+		</div>
+		<a (click)="onCloseOutlet(outlet)">[x] close</a>
+		
+	</div>
+	
+	
+
+</nav>

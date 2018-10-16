@@ -1,0 +1,28 @@
+nav{
+	background-color:white;
+	font-size:18px;
+	font-family:Arial;
+	// color:black;
+	padding:20px;
+	z-index:9;
+	position:fixed;
+	left:0px;
+	top:0px;
+		
+	/* display:none; */
+	
+	a{
+		font-size:14px;
+		color:blue;
+		cursor:pointer;
+		
+	}
+	a:hover{
+		text-decoration: underline;
+	}
+	
+	&.hidden{
+		visibility:hidden;
+	}
+
+}

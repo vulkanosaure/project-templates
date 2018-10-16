@@ -1,0 +1,19 @@
+.anim_right{
+	position:relative;
+}
+.anim_left{
+	position:relative;
+}
+.anim_bottom, .anim_bottom_delay{
+	position:relative;
+}
+.anim_top{
+	position:relative;
+}
+
+
+
+.anim_fade{
+	transition: opacity 0.3s;
+	transition-timing-function: ease-out;
+}

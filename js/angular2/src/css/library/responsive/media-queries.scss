@@ -41,9 +41,9 @@ $width_xl : 1200;
 		@content;
 	}
 }
-@mixin retinaBg($file, $width, $height){
+@mixin retinaBg($file, $width, $height:''){
 	@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-		background-image:url('#{$file}@2x.png');
+		background-image:url('#{$file}@x2.png');
 		background-size:$width $height;
 	}
 }

@@ -18,7 +18,7 @@ const slideIn = animation([
 			opacity: 1, 
 			marginTop:'*',
 		}))
-	], { params: { duration: '600ms', delay:'0ms'}
+	], { params: { duration: '600ms', delay:'0ms'}}
 );
 
 
@@ -27,18 +27,18 @@ const slideOut = animation([
 		opacity: 0, 
 		marginTop:'600px',
 	}))
-], { params: { duration: '350ms', delay:'0ms'}
+], { params: { duration: '350ms', delay:'0ms'}}
 );
 
 
 const fadeIn = animation([
 	style({opacity:0}),
 	animate('300ms {{delay}}', style('*'))
-], { params: { delay: '0ms'}
+], { params: { delay: '0ms'}}
 );
 const fadeOut = animation([
 	animate('300ms {{delay}}', style({opacity:0}))
-], { params: { delay: '0ms'}
+], { params: { delay: '0ms'}}
 );
 
 
