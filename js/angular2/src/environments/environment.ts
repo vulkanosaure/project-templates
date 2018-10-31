@@ -4,10 +4,10 @@
 
 export const environment = {
 	
-	BASE_URL:'',
+	BASE_URL_API:'',
 	production: false,
 	debug:true,
-	mockApi:true,
+	mockApi:false,
 };
 
 /*

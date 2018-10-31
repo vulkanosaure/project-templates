@@ -1,2 +1,2 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf='loaded'></router-outlet>
 <app-router-menu *ngIf='env.debug' [routes]='routes'></app-router-menu>

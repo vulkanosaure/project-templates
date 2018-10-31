@@ -1,5 +1,9 @@
+@import 'library/responsive/media-queries';
+@import 'animations';
+
 /*__________________________________________________________*/
 /* generic */
+
 
 
 button{
@@ -12,49 +16,105 @@ button{
 	}
 }
 
+.btn{
+	cursor:pointer;
+	user-select: none;
+}
+
 textarea:focus, input:focus, button:focus{
 	outline: none;
 }
 
+.clickable{
+	cursor:pointer;
+}
 
 
 /*__________________________________________________________*/
 
-a.btn{
-	background-image:url('/assets/images/ui/btns/btn_bg.png');
-	width:306px; height:76px;
-	line-height: 76px;
+a.btn_main{
+	@extend .btn;
+	@extend .glow;
+	@extend .col_light;
+	@extend .text_center;
+	@extend .btn_anim;
+	
+	background-image:none;
+	width:278px; height:55px;
+	
+	line-height: 46px;
 	display:block;
 	text-align:center;
-	cursor:pointer;
 	
-	color:#F4D64B;
-	font-family:'NexaBold';
-	font-size:24px;
+	font-size:19px;
 	letter-spacing:0px;
-	text-align:center;
+	font-family:'NexaLight';
 	
-	&:active{
-		transform: translateY(4px);
+	&:hover{
+		font-family:'NexaBold';
+		background-image:url('/assets/images/ui/btns/btn_bg.png');
+		//@include retinaBg('/assets/images/ui/btns/btn_bg', 278px, 55px);
+	}
+	
+}
+
+
+
+
+
+
+
+/*__________________________________________________________*/
+/* inputs */
+
+
+
+input.regular{
+	
+	width:350px - 2 * 10px; height:28px;
+	border:0;
+	background-color: transparent;
+	background-image:url('/assets/images/ui/btns/bg_input.png');
+	@include retinaBg('/assets/images/ui/btns/bg_input', 351px, 30px);
+	
+	padding:0px 10px;
+	
+	@extend .col_dark;
+	@extend .nexalight_16;
+	@extend .text-left;
+	
+	&::placeholder{
+		@extend .col_dark;
+		@extend .nexalight_16;
+		@extend .text-left;
+	}
+	&:not(:first-child) {
+		margin-top:13px;
 	}
 }
 
 
-/* 
-button.btn_valid_input{
-	background-image:url('/assets/images/ui/btns/btn_valid_input.png');
-	width:77px; height:82px;
-}
 
-a.btn_no{
-	background-image:url('/assets/images/ui/btns/btn_no_bg.png');
-	width:306px; height:76px;
-}
-a.btn_yes{
-	background-image:url('/assets/images/ui/btns/btn_yes_bg.png');
-	width:306px; height:76px;
-}
-*/
 
+
+
+input[type=checkbox]{
+	display:none;
+}
+input[type=checkbox] + label{
+	
+} 
+input[type=checkbox]:checked + label{
+	background-image:url('/assets/images/ui/inputs/checkbox_valid.png');
+	background-repeat: no-repeat;
+} 
+input[type=checkbox] + label{
+	background-image:url('/assets/images/ui/inputs/checkbox_bg.png');
+	background-repeat: no-repeat;
+	padding-left:38px;
+	padding-top:5px;
+	padding-bottom:7px;
+	cursor:pointer;
+}
 
 

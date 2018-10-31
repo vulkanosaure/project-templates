@@ -17,3 +17,9 @@
 	transition: opacity 0.3s;
 	transition-timing-function: ease-out;
 }
+
+.btn_anim{
+	&:active{
+		transform:scale(0.97);
+	}
+}

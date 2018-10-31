@@ -23,7 +23,7 @@ export class ApiService {
 		}
 		if(!uid) uid = this.defaultUID;
 		let body:any = {companyUid : uid};
-		return this.http.post(environment.BASE_URL + '/getData', body);
+		return this.http.post(environment.BASE_URL_API + '/getData', body);
 		
 		
 		return this.http.get('assets/json/gamedata.json');
