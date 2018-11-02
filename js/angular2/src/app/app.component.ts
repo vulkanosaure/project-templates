@@ -4,6 +4,7 @@ import { Routes } from '@angular/router';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 import { Component } from '@angular/core';
+import { RouterEventService } from './shared/navigation/router-event.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent {
 	constructor(
 		private api:ApiService,
 		private ds:DataService,
+		private routerEvent:RouterEventService,
 	)
 	{
 		/* 
@@ -35,6 +37,20 @@ export class AppComponent {
 		});
 		*/
 		
+		
+		
+		/* 
+		routerEvent.setListOutlets(['modal_game', 'modal_menu', 'modal']);
+		routerEvent.addListener(
+				['create-account', 'credits'], 
+				()=> {
+					//enter
+				},
+				() => {
+					//leave
+				}
+		);
+		 */
 		
 	}
 	

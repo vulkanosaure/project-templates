@@ -2,6 +2,15 @@ html, body{
 	width:100%; height:100%;
 }
 
+body{
+	margin:0;
+	overflow:hidden;
+}
+p{
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
 app-root{
 	width:100%; height:100%;
 	display:block;

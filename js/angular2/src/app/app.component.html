@@ -1,2 +1,4 @@
 <router-outlet *ngIf='loaded'></router-outlet>
+<router-outlet name="modal" *ngIf='loaded'></router-outlet>
+
 <app-router-menu *ngIf='env.debug' [routes]='routes'></app-router-menu>
