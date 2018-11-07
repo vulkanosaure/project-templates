@@ -1,3 +1,5 @@
+code --install-extension 
+
 bmewburn.vscode-intelephense-client
 brpaz.file-templates
 christian-kohler.path-intellisense

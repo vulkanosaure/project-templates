@@ -58,8 +58,44 @@ a.btn_main{
 	
 }
 
+a.btn_iconright{
+	@extend .btn;
+	@extend .col_light;
+	@extend .btn_anim_small;
+	// @extend .gothamrounded_bold_21;
+	
+	display:flex;
+	align-items:center;
+	& > img{
+		margin-left:10px;
+	}
+}
+
+a.btn_iconleft{
+	@extend .btn;
+	@extend .col_light;
+	@extend .btn_anim_small;
+	// @extend .gothamrounded_bold_21;
+	
+	display:flex;
+	align-items:center;
+	& > img{
+		margin-right:10px;
+	}
+}
 
 
+a.btn_link{
+	@extend .btn;
+	@extend .col_grey;
+	@extend .text_left;
+	// @extend .nexalight_13;
+	
+	display:inline-block;
+	&:active{
+		@extend .col_light;
+	}
+}
 
 
 
