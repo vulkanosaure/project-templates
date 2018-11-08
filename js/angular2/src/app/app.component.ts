@@ -5,6 +5,8 @@ import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 import { Component } from '@angular/core';
 import { RouterEventService } from './shared/navigation/router-event.service';
+import { TimeoutService } from './shared/time/timeout.service';
+import { ModalsService } from './shared/navigation/modals.service';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +24,12 @@ export class AppComponent {
 		private api:ApiService,
 		private ds:DataService,
 		private routerEvent:RouterEventService,
+		private modalService:ModalsService,
+		private timeout:TimeoutService,
 	)
 	{
+		this.timeout.enabled = !this.env.skipTimeout;
+		
 		/* 
 		let tab = location.href.match(new RegExp("uid=(.+)$"));
 		this.ds.uid = tab && tab.length  >= 1 && tab[1];
