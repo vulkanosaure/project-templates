@@ -18,7 +18,11 @@ import { PageGameComponent } from './pages/page-game/page-game.component';
   ],
   imports: [
 		BrowserModule,
-		SharedModule.forRoot(),
+		SharedModule.forRoot(
+			[
+				{target: '\n', replace: '<br />'},
+			]
+		),
 		RouterModule.forRoot(routes, {
 			useHash: true,
 			// initialNavigation: false,
