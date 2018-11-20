@@ -8,8 +8,9 @@
 	"For loop": {
 		"prefix": "for",
 		"body": [
-			"for(let ${1:i}=0;$1<$2;$1++){;",
-			"\t$3",
+			"for(let ${1:i}=0;$1<$2;$1++){",
+			"\tlet ${3:item} = ${4:tab}[$1];",
+			"\t$5",
 			"}"
 		],
 		"description": "For loop"
@@ -18,14 +19,13 @@
 	"For in loop": {
 		"prefix": "forin",
 		"body": [
-			"for(let ${1:k} in ${2:}){;",
+			"for(let ${1:k} in ${2:}){",
 			"\tlet ${3:item} = $2[$1];",
 			"\t$4",
 			"}"
 		],
 		"description": "For loop"
 	},
-	
 	
 	"log" : {
 		"prefix": "log",
@@ -34,7 +34,6 @@
 		],
 		"description": "console log"
 	},
-	
 	
 	"foreach": {
 		"prefix": "foreach",
@@ -47,16 +46,96 @@
 		"description": "foreach"
 	},
 	
-	
 	"Set timeout": {
-		"prefix": "settimeout",
+		"prefix": "help_settimeout",
 		"body": [
-			"setTimeout(function() {",
+			"setTimeout(() => {",
+			"\t$2",
+			"}, ${1:1000});"
+		],
+		"description": "set timeout"
+	},
+	
+	
+	"Set interval": {
+		"prefix": "help_setinterval",
+		"body": [
+			"setInterval(function() {",
 			"\t$2",
 			"}.bind(this), ${1:1000});"
 		],
-		"description": "set timeout"
+		"description": "set interval"
+	},
+	
+	
+	"TweenMax": {
+			"prefix": "help_tweenmax",
+			"body": [
+					"// npm i -S gsap @types/greensock",
+					"// import {TweenMax} from \"gsap\";",
+					"",
+					"TweenMax.to(this.headerScore.nativeElement, 2, {marginTop:30, ease: Elastic.easeOut, onComplete:null, delay: 1});"
+			],
+			"description": "TweenMax basic usage"
+	},
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	"Ng router param": {
+			"prefix": "help_ng_routeparam",
+			"body": [
+					"this.route.snapshot.paramMap.get('$2');"
+			],
+			"description": "Angular : get router params"
+	},
+	
+	"Ng inject window": {
+			"prefix": "help_ng_inject_window",
+			"body": [
+					"//in constructor params",
+					"@Inject(WINDOW) private window: Window,"
+			],
+			"description": "Angular : how to access window object"
+	},
+	
+	"Ng router events": {
+			"prefix": "help_ng_router_events",
+			"body": [
+					"// private router:Router,",
+					"// private urlParser:UrlParserService,",
+					"router.events.subscribe((event) => {",
+					"",
+					"\tif (event instanceof NavigationEnd) {",
+					"\t\t",
+					"\t\tlet url:string = event.url;",
+					"\t\tlet idmodal:string = this.urlParser.getRoute(url, 'modal');",
+					"\t\t$1",
+					"\t\t",
+					"\t}",
+					"});"
+			],
+			"description": "Angular : subscribe to router events"
+	},
+	
+	"Ng ViewChild": {
+			"prefix": "help_ng_viewchild",
+			"body": [
+					"@ViewChild('$1') ${1}:${2:ElementRef};"
+			],
+			"description": "Angular : ViewChild reference"
 	}
-	}
+	
+	
 	
 }

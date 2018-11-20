@@ -25,9 +25,65 @@
 		"",
 		"$2"
 		]
-	}
+	},
+	
+	"transition": {
+			"prefix": "help_transition",
+			"body": [
+					"transition: all 0.2s ease-out;",
+					"transition-property: left, top;"
+			],
+			"description": "common transition use case"
+	},
 	
 	
+	"import lib media queries": {
+			"prefix": "importmediaqueries",
+			"body": [
+					"@import 'library/responsive/media-queries.scss';"
+			],
+			"description": "Import media queries.scss"
+	},
+	
+	
+	"elypsis": {
+			"prefix": "help_elipsis",
+			"body": [
+					"width:100px;",
+					"white-space: nowrap;",
+					"overflow: hidden;",
+					"text-overflow: ellipsis;"
+			],
+			"description": "width elipsis..."
+	},
+	
+	
+	"not first child": {
+			"prefix": "help_notfirstchild",
+			"body": [
+					"&:not(:first-child) {",
+					"\t$1",
+					"}"
+			],
+			"description": "not first child pseudo selector"
+	},
+	
+	
+	
+
+		"scrollbar hidden": {
+				"prefix": "help_scroll_hidden",
+				"body": [
+						"overflow-y:scroll;",
+						"-ms-overflow-style: none;  // IE 10+",
+						"overflow: -moz-scrollbars-none;  // Firefox",
+						"&::-webkit-scrollbar { ",
+						"\tdisplay: none;  // Safari and Chrome",
+						"}",
+				],
+				"description": "scrollbar hidden"
+		}
+
 	
 	
 }

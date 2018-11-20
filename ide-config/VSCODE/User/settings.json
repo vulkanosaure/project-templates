@@ -141,14 +141,14 @@
 	"explorer.openEditors.visible": 0, // Default false
 	// "files.associations": {"*.php": "html"}  
 	
-	"angular2-swithcer.openSideBySide": true,
+	"angular2-swithcer.openSideBySide": false,
 	"typescript.tsdk": "C:/Users/VINC/AppData/Roaming/npm/node_modules/typescript/lib",
 	
 	
 	"launch" : {
 		"configurations": [
 			{
-				"name": "chrome angular",
+				"name": "ng serve",
 				"type": "chrome",
 				"request": "launch",
 				"url": "http://localhost:4200",
@@ -156,7 +156,15 @@
 				"sourceMaps": true
 			},
 			{
-				"name": "Debug js (launch)",
+				"name": "ionic serve",
+				"type": "chrome",
+				"request": "launch",
+				"url": "http://localhost:8100",
+				"webRoot": "${workspaceFolder}",
+				"sourceMaps": true
+			},
+			{
+				"name": "vanilla js",
 				"type": "chrome",
 				"request": "launch",
 				"url" : "http://autospot.local",
@@ -164,7 +172,24 @@
 				"port": 9333,
 				"sourceMaps": false,
 				"webRoot": "${workspaceRoot}"
+			},
+			
+			{
+				"name": "ng test",
+				"type": "chrome",
+				"request": "launch",
+				"url": "http://localhost:9876/debug.html",
+				"webRoot": "${workspaceFolder}"
+			},
+			{
+				"name": "ng e2e",
+				"type": "node",
+				"request": "launch",
+				"program": "${workspaceFolder}/node_modules/protractor/bin/protractor",
+				"protocol": "inspector",
+				"args": ["${workspaceFolder}/e2e/protractor.conf.js"]
 			}
+			
 		]
 	},
 	
@@ -180,5 +205,7 @@
 	"scrolloff.scrolloff": 5,
 	
 	"files.autoSave": "off",
-	"explorer.confirmDragAndDrop": false
+	"explorer.confirmDragAndDrop": false,
+	"typescript.updateImportsOnFileMove.enabled": "never",
+	"autoimport.filesToScan": "./src/app/**/*.ts"
 }
