@@ -1,0 +1,6 @@
+<ng-container *ngFor="let item of arrayOne(length); let i = index;">
+	
+	<span class='item'>
+		<ng-container #elmt *ngTemplateOutlet='i==index ? templateOn : templateOff'></ng-container>
+	</span>
+</ng-container>

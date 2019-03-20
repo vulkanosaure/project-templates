@@ -10,7 +10,7 @@ export class RouterMenuComponent implements OnInit {
 
   @Input() routes:Routes;
 	listOutlet: string[];
-	hidden:boolean = true;
+	hidden:boolean = false;
 	
 
   constructor(private router: Router) {
@@ -34,7 +34,7 @@ export class RouterMenuComponent implements OnInit {
 
   onclick(item) {
 		
-		console.log('onclick()');
+		// console.log('onclick()');
     if (item.outlet) {
       this.router.navigate([{ outlets: { [item.outlet]: item.path } }], {skipLocationChange : false});
     }

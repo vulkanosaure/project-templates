@@ -1,5 +1,8 @@
 import { query, transition, trigger, group, useAnimation, animate, animation, animateChild, style, stagger, sequence } from '@angular/animations';
-import { DslService, DslAnimType, DSL_EASING } from '../shared/animation/dsl.service';
+import { DslAnimateService } from '../shared/animation/dsl.service';
+import { Easing, AnimType } from '../shared/animation/animation.interface';
+import { AnimateBase } from '../shared/animation/animate.base.service';
+import { environment } from 'src/environments/environment';
 
 /*
 decorator :
@@ -9,25 +12,26 @@ declarations :
 */
 
 
-export var dsl:DslService = new DslService();
+export var dsl:DslAnimateService = new DslAnimateService();
 
-dsl.setParams(DslAnimType.GLOBAL, {
-	easeIn: DSL_EASING.BACK_OUT,
+AnimateBase.addTypeOptions(AnimType.GLOBAL, {
+	easeIn: Easing.EASE_OUT,
+	easeOut: Easing.EASE_OUT,
 });
 
-dsl.setParams(DslAnimType.SLIDE, {
+AnimateBase.addTypeOptions(AnimType.SLIDE, {
 	dir:'top',
 	distanceIn:300,
-	easeIn: DSL_EASING.BACK_OUT,
+	easeIn: Easing.EASE_OUT,
 	timeIn:0.4,
 });
 
-dsl.setParams(DslAnimType.ZOOM, {
-	easeIn: DSL_EASING.BACK_OUT,
+AnimateBase.addTypeOptions(AnimType.ZOOM, {
+	easeIn: Easing.BACK_OUT,
 	timeIn:0.4,
 	scaleStart: 0.2,
 	scaleEnd: 0,
 });
 
-
+// AnimateBase.enableTime = !environment.skipTimeout;
 

@@ -42,4 +42,17 @@ export class FullscreenService {
 			doc.msExitFullscreen();
 		}
 	}
+	
+	
+	isFullscreen():boolean
+	{
+		let deltaX:number = Math.abs(window.innerWidth - screen.width);
+		let deltaY:number = Math.abs(window.innerHeight - screen.height);
+		
+		if(deltaX < 5 && deltaY < 5) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

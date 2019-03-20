@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 interface SoundPlayerItem{
 	audio:any;
@@ -26,7 +26,26 @@ export class SoundPlayerService {
 	private isLower:Boolean = false;
 	private enabled:boolean = true;
 	
-	constructor() { }
+	private renderer: Renderer2;
+	private listDisabled:string[] = [];
+	
+	
+	options: SoundPlayerOptions = {
+		volume:1, 
+		group:"", 
+		loop: false, 
+		looptab: null,
+		forceStart :true,
+	};
+	
+	constructor(
+		rendererFactory: RendererFactory2
+	) { 
+		this.renderer = rendererFactory.createRenderer(null, null);
+		
+		
+		
+	}
 	
 	
 
@@ -99,9 +118,13 @@ export class SoundPlayerService {
 	
 	
 
-	play(filename:string, volume:number = 1, group:string = "", loop:boolean = false, looptab:number[] = null):void
+	play(filename:string, options:SoundPlayerOptions = null):void
 	{
 		if(!this.enabled) return;
+		
+		options = {...this.options, ...options, };
+		if(!options.forceStart && this.isPlaying(filename)) return;
+		
 		
 		//console.log("play("+filename+")");
 		var audio:any;
@@ -118,14 +141,14 @@ export class SoundPlayerService {
 			//console.log("create");
 			item = {
 				audio : new Audio(),
-				group : group,
-				loop : loop,
-				looptab : looptab,
+				group : options.group,
+				loop : options.loop,
+				looptab : options.looptab,
 				duration : NaN,
 			}
 
 			var folder:string;
-			if(group != "" && this.folderGroup[group]) folder = this.folderGroup[group];
+			if(options.group != "" && this.folderGroup[options.group]) folder = this.folderGroup[options.group];
 			else folder = this.folder;
 
 			item.audio.src = folder + filename;
@@ -133,8 +156,8 @@ export class SoundPlayerService {
 			this.data[filename] = item;
 
 				
-			if(loop){
-				if(looptab){
+			if(options.loop){
+				if(options.looptab){
 					item.audio.ontimeupdate = function() {
 						var time:number = item.audio.currentTime;
 
@@ -142,8 +165,8 @@ export class SoundPlayerService {
 
 						if(!isNaN(item.duration)){
 
-							var timeend:number = item.duration - looptab[1];
-							if(time >= timeend) item.audio.currentTime = looptab[0];
+							var timeend:number = item.duration - options.looptab[1];
+							if(time >= timeend) item.audio.currentTime = options.looptab[0];
 
 						}
 
@@ -155,29 +178,62 @@ export class SoundPlayerService {
 				}
 			}
 		}
+		
+		
+		
+		
+		
+		if(options.duration){
+			
+			var timeend:number = -1;
+			item.audio.ontimeupdate = function() {
+				var time:number = item.audio.currentTime;
+				if(isNaN(item.duration)) item.duration = item.audio.duration;
+				
+				if(timeend == -1 && !isNaN(item.duration)){
+					
+					let str:string = options.duration.toString();
+					if(str.charAt(str.length - 1) == '%'){
+						let percent:number = parseInt(str.substr(0, str.length - 1));
+						timeend = item.duration * percent / 100;
+					}
+					else timeend = <number>options.duration;
+				}
+				
+				if(timeend != -1 && time >= timeend) item.audio.pause();
+				
+			};
+		}
+		
+		
+		//todo timestart
+		
+		
 
-		if(group != "" && this.volumeGroup[group]) item.audio.volume = this.volumeGroup[group];
+		if(options.group != "" && this.volumeGroup[options.group]) item.audio.volume = this.volumeGroup[options.group];
 		else item.audio.volume = this.volume;
 		
-		item.audio.volume *= volume;
+		item.audio.volume *= options.volume;
 
-		//item.audio.currentTime = 118;	//tests
+		item.audio.currentTime = 0;
 		item.audio.play();
-
+		
 	}
 	
 	
 	
 	
-	
-	enable():void
+	enable(replayPendingSounds:boolean = true):void
 	{
 		this.enabled = true;
 		
-		for(let k in this.data){;
-			let item = this.data[k];
-			if(item.audio.paused) item.audio.play();
+		if(replayPendingSounds){
+			this.listDisabled.forEach((k:string) => {
+				this.data[k].audio.play();
+			});
 		}
+		
+		this.listDisabled = [];
 	}
 	
 	
@@ -185,9 +241,12 @@ export class SoundPlayerService {
 	{
 		this.enabled = false;
 		
-		for(let k in this.data){;
+		for(let k in this.data){
 			let item = this.data[k];
-			if(!item.audio.paused) item.audio.pause();
+			if(!item.audio.paused){
+				item.audio.pause();
+				this.listDisabled.push(k);
+			}
 		}
 		
 		
@@ -197,5 +256,30 @@ export class SoundPlayerService {
 	
 	
 	
+	public addSelectorEvent(classname:string, evt:string, filename:string, options:SoundPlayerOptions = null):void
+	{
+		this.renderer.listen('document', evt, (event) => {
+			let classes:string[] = event.target.className.split(' ');
+			if(classes.indexOf(classname) > -1){
+				this.play(filename, options);
+			}
+		});
+	}
+	
+	
+	
+	
 
+}
+
+
+export interface SoundPlayerOptions{
+	volume?:number, 
+	group?:string, 
+	loop?:boolean, 
+	looptab?:number[],
+	forceStart?:boolean,
+	
+	duration?:number | string,		//sec or %
+	timestart?:number | string,		//sec or %
 }

@@ -6,6 +6,13 @@ import { Injectable } from '@angular/core';
 export class DataService {
 	
 	
+	public mock():void
+	{
+		//for testing
+	}
+	
+	
+	
 	constructor() { }
 	
 	

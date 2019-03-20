@@ -1,0 +1,30 @@
+/* 
+:host{
+	display:block;
+}
+ */
+// .content{
+:host{
+	display:block;
+	// height:100%;
+	// height:inherit;
+	// max-height:272px;
+	
+	overflow-y:scroll;
+	-ms-overflow-style: none;  // IE 10+
+	overflow: -moz-scrollbars-none;  // Firefox
+	&::-webkit-scrollbar { 
+		display: none;  // Safari and Chrome
+	}
+	
+	
+		//top
+		// -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), color-stop(0.1, rgb(0, 0, 0)), color-stop(1.0, rgb(0, 0, 0)), to(rgba(0, 0, 0, 0)));
+		
+		//bottom
+		// -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(0, 0, 0)), color-stop(0.9, rgb(0, 0, 0)), to(rgba(0, 0, 0, 0)));
+		//both
+		// -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0)), color-stop(0.1, rgb(0, 0, 0)), color-stop(0.9, rgb(0, 0, 0)), to(rgba(0, 0, 0, 0)));
+		
+	
+}

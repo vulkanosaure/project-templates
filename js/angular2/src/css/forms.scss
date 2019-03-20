@@ -61,7 +61,7 @@ a.btn_main{
 a.btn_iconright{
 	@extend .btn;
 	@extend .col_light;
-	@extend .btn_anim_small;
+	@extend .btn_anim;
 	// @extend .gothamrounded_bold_21;
 	
 	display:flex;
@@ -74,7 +74,7 @@ a.btn_iconright{
 a.btn_iconleft{
 	@extend .btn;
 	@extend .col_light;
-	@extend .btn_anim_small;
+	@extend .btn_anim;
 	// @extend .gothamrounded_bold_21;
 	
 	display:flex;
@@ -87,7 +87,7 @@ a.btn_iconleft{
 
 a.btn_link{
 	@extend .btn;
-	@extend .col_grey;
+	@extend .col_light;
 	@extend .text_left;
 	// @extend .nexalight_13;
 	
@@ -116,13 +116,13 @@ input.regular{
 	padding:0px 10px;
 	
 	@extend .col_dark;
-	@extend .nexalight_16;
-	@extend .text-left;
+	// @extend .nexalight_16;
+	@extend .text_left;
 	
 	&::placeholder{
 		@extend .col_dark;
-		@extend .nexalight_16;
-		@extend .text-left;
+		// @extend .nexalight_16;
+		@extend .text_left;
 	}
 	&:not(:first-child) {
 		margin-top:13px;

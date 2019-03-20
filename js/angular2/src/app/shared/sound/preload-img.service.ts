@@ -5,16 +5,35 @@ export class PreloadImgService {
 
 	constructor() { }
 	
-	preload(tab:string[]) {
+	length:number;
+	counter:number;
+	
+	preload(tab:string[], handlerComplete:()=>void = null) {
 		var img;
-		for (var i = 0; i < tab.length; i++) {
-				/* 
-				img = new Image()
-				img.src = tab[i];
-				*/
+		this.length = tab.length;
+		this.counter = 0;
+		
+		for (var i = 0; i < this.length; i++) {
+				
+				let url:string = tab[i];
+				
+				img = new Image();
+				img.onload = () => {
+					this.counter++;
+					if(this.counter == this.length){
+						console.log('preload img complete '+this.counter+' / '+this.length);
+						if(handlerComplete){
+							console.log('preload img COMPLETE');
+							handlerComplete();
+						}
+					}
+				}
+				img.src = url;
+				
 				var div = document.createElement("div");
-				div.style.backgroundImage = "url("+tab[i]+")";
+				div.style.backgroundImage = "url(" + url + ")";
 				document.querySelector("body").appendChild(div);
+				
 		}
 	}
 	

@@ -3,13 +3,88 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CallbackModal } from './modals.interface';
 
+//idée : ModalService : filer Routes en config d'entrée
+//apres, plus besoin de préciser la modal, il la détermine
+//trouver un moyen pour pouvoir le forcer qd mm (pas par défaut, cas ou conflit)
+
+
 @Injectable()
 export class ModalsService {
-
 	
+	private instances:ModalsServiceGroup;
+	private handlersOutlet:any;
+	
+	constructor(
+		private router: Router,
+		private paramsService: ParamsService,
+	) {
+		this.instances = {};
+	}
+	
+	
+	private getInstance(outlet:string):ModalsServiceSub
+	{
+		if(!outlet) outlet = 'main';
+		if(!this.instances[outlet]){
+			this.instances[outlet] = new ModalsServiceSub(
+				this.router,
+				this.paramsService,
+			);
+		}
+		return this.instances[outlet];
+	}
+	
+	
+	public open(route:string, outlet:string = null, params:any[] = null, closeBefore:boolean = false): Promise<boolean>
+	{
+		let outletName:string = outlet || 'root';
+		if(this.handlersOutlet && this.handlersOutlet[outletName]){
+			this.handlersOutlet[outletName].forEach((handler:any) => {
+				handler();
+			});
+		}
+		
+		let inst = this.getInstance(outlet);
+		return inst.open(route, outlet, params, closeBefore);
+	}
+	
+	public close(outlet:string = null): Promise<boolean>
+	{
+		let inst = this.getInstance(outlet);
+		return inst.close(outlet);
+	}
+	
+	
+	
+	public addOutletListener(outlet:string, handler:()=>void):void
+	{
+		let outletName:string = outlet || 'root';
+		if(!this.handlersOutlet) this.handlersOutlet = {};
+		if(!this.handlersOutlet[outletName]) this.handlersOutlet[outletName] = [];
+		this.handlersOutlet[outletName].push(handler);
+		
+	}
+	
+	
+	
+}
+
+export interface ModalsServiceGroup {
+	[name: string]: ModalsServiceSub;
+}
+
+
+
+
+
+
+class ModalsServiceSub {
+
 	private _onModalsComplete: any;
-	private prevModal:string;
+	private prevModal:string;	//todo remove, replace with history
+	private history:string[];
 	private curModal:string;
+	
 	
 
 	private linkedModals: {
@@ -29,53 +104,63 @@ export class ModalsService {
 	
 
 
-	public closeModal(outlet: string = ""): Promise<boolean> {
-		
-		if (outlet == "") outlet = "modal";
+	public close(outlet: string = null): Promise<boolean>
+	{
 		this.prevModal = this.curModal;
 		this.curModal = null;
-		return this.router.navigate([{ outlets: { [outlet]: null } }], { skipLocationChange: true });
+		
+		let tab:any[];
+		if(!outlet) tab = [null];	//todo tocheck ?
+		else tab = [{ outlets: { [outlet]: null } }];
+		
+		return this.router.navigate(tab, { skipLocationChange: true });
 	}
-
-	public openModal(_id: string, outlet: string = "", closeBefore:boolean = false): Promise<boolean> {
-		if (outlet == "") outlet = "modal";
+	
+	
+	
+	public open(_id: string, outlet: string = null, _params:any[] = null, closeBefore:boolean = false): Promise<boolean> {
 		
 		this.prevModal = this.curModal;
 		this.curModal = _id;
 		
+		let tab:any[];
+		if(!outlet) tab = ["/"+_id];
+		else tab = [{ outlets: { [outlet]: _id } }];
+		
+		if(_params) tab = [...tab, ..._params];
+		
+		
 		if(closeBefore){
-			return this.closeModal()
+			return this.close()
 			.then(() => {
-				return this.router.navigate([{ outlets: { [outlet]: _id } }], { skipLocationChange: true });
+				return this.router.navigate(tab, { skipLocationChange: true });
 			});
 		}
 		else{
-			return this.router.navigate([{ outlets: { [outlet]: _id } }], { skipLocationChange: true });
+			return this.router.navigate(tab, { skipLocationChange: true });
 		}
 	}
 	
+	
+	
+	
 	public openPrevModal():void
 	{
-		if(this.prevModal) this.openModal(this.prevModal);
-		else this.closeModal();
+		if(this.prevModal) this.open(this.prevModal);
+		else this.close();
 		
 	}
 	
 	
 	
-	public gotoPage(_id: string, _params:any[] = null): Promise<boolean> {
-		
-		let tab:any[] = ["/"+_id];
-		if(_params) tab = [...tab, ..._params];
-		
-		return this.router.navigate(tab, { skipLocationChange: true });
-		
-	}
 	
 	
-
-
-	public getLength(): number {
+	//__________________________________________________________
+	//linked modals
+	
+	
+	
+	public getNumberLinkedModal(): number {
 		return (this.linkedModals) ? this.linkedModals.length : 0;
 	}
 
@@ -83,8 +168,6 @@ export class ModalsService {
 		this._onModalsComplete = callback;
 	}
 	
-	
-
 	public addLinkedModal(id: string, data: any, callback: any = null, delay: number = 0, priority: number = -1): void {
 		
 		console.log("addLinkedModal(" + id + ")");
@@ -104,14 +187,8 @@ export class ModalsService {
 		this.openNewLinkedModal(delay);
 		
 	}
-
-
-
-
-
-
-
-
+	
+	
 	private openNewLinkedModal(delay: number): void {
 
 		if (!this.modalLinkOpen && this.linkedModals.length > 0) {
@@ -127,7 +204,7 @@ export class ModalsService {
 
 			var _this = this;
 			setTimeout(function () {
-				_this.openModal(obj.id);
+				_this.open(obj.id);
 			}, delay);
 
 
@@ -135,8 +212,6 @@ export class ModalsService {
 
 		}
 	}
-	
-	
 	
 	
 	private callbackCloseLinkedModal(data: any = null): void {
@@ -157,7 +232,7 @@ export class ModalsService {
 			if (this._onModalsComplete) this._onModalsComplete();
 		}
 		
-		setTimeout(this.closeModal.bind(this), 10);
+		setTimeout(this.close.bind(this), 10);
 		setTimeout(this.openNewLinkedModal.bind(this), 700);
 		
 	}

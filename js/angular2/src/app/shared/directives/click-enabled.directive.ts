@@ -27,7 +27,7 @@ export class ClickEnabledDirective {
 	
 	
 	ngOnChanges(changes: SimpleChanges): void {
-		if(changes.vnClickEnabled){
+		if(changes.vnClickEnabled){	
 			this.vnClickEnabled;
 			
 			let value:string = this.vnClickEnabled ? 'auto' : 'none';

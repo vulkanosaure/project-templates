@@ -9,12 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { PageGameComponent } from './pages/page-game/page-game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageGameComponent,
   ],
   imports: [
 		BrowserModule,
