@@ -28,6 +28,7 @@ export class AppComponent {
 		private timeout:TimeoutService,
 	)
 	{
+		console.log('app.component const()');
 		this.timeout.enabled = !this.env.skipTimeout;
 		
 		/* 
@@ -43,12 +44,12 @@ export class AppComponent {
 		});
 		*/
 		
-		
+		routerEvent.setRoutes(routes);
 		
 		/* 
 		routerEvent.setListOutlets(['modal_game', 'modal_menu', 'modal']);
 		routerEvent.addListener(
-				['create-account', 'credits'], 
+					['create-account', 'credits'], 
 				()=> {
 					//enter
 				},
