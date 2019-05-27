@@ -4,7 +4,9 @@
 /*__________________________________________________________*/
 /* generic */
 
-
+.noclick{
+	pointer-events: none;
+}
 
 button{
 	background-color:transparent;

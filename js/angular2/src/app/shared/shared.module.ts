@@ -31,6 +31,9 @@ import { TransitionerComponent } from './ui/transitioner/transitioner.component'
 import { NumberPipe } from './pipes/number.pipe';
 import { TurnBasedService } from './pattern/turn-based.service';
 import { DragndropService } from './ui/dragndrop.service';
+import { MouseWheelService } from './inputs/mouse-wheel.service';
+import { KeyboardService } from './inputs/keyboard.service';
+import { SwipeService } from './inputs/swipe.service';
 
 @NgModule({
   imports: [
@@ -93,7 +96,9 @@ export class SharedModule {
 				 PlatformService,
 				 TurnBasedService,
 				 DragndropService,
-				
+				 MouseWheelService,
+				 KeyboardService,
+				 SwipeService,
 			 ]
 		};
 	}

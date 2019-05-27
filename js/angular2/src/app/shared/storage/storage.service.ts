@@ -2,10 +2,20 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class StorageService {
+	
 
 	constructor() { }
 	
-	
+	public init(version:number):void
+	{
+		let key:string = 'version';
+		let existingVersion:string = localStorage.getItem(key);
+		if(!existingVersion || version > +existingVersion){
+			localStorage.clear(); 
+			localStorage.setItem(key, version + '');
+			
+		}
+	}
 	
 	public isset(key:string):boolean
 	{

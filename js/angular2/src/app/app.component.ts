@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 import { RouterEventService } from './shared/navigation/router-event.service';
 import { TimeoutService } from './shared/time/timeout.service';
 import { ModalsService } from './shared/navigation/modals.service';
+import { StorageService } from './shared/storage/storage.service';
+
 
 @Component({
   selector: 'app-root',
@@ -26,10 +28,16 @@ export class AppComponent {
 		private routerEvent:RouterEventService,
 		private modalService:ModalsService,
 		private timeout:TimeoutService,
+		private storage:StorageService,
 	)
 	{
 		console.log('app.component const()');
+		
+		this.storage.init(1);
+		
 		this.timeout.enabled = !this.env.skipTimeout;
+		this.loaded = true;
+		
 		
 		/* 
 		let tab = location.href.match(new RegExp("uid=(.+)$"));

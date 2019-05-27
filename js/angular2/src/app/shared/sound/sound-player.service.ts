@@ -222,6 +222,10 @@ export class SoundPlayerService {
 	
 	
 	
+	isEnabled():boolean
+	{
+		return this.enabled;
+	}
 	
 	enable(replayPendingSounds:boolean = true):void
 	{

@@ -243,7 +243,7 @@ export class AnimateBase {
 			styleinit.transform = this.getTransformValue(options.scaleStart, options.zoomX, options.zoomY);
 		}
 		if(options.fade) styleinit['opacity'] = 0;
-		
+		styleinit['transform-origin'] = "bottom center";
 		
 		let styleend:any = {
 			opacity: 1,

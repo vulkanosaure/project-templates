@@ -12,6 +12,7 @@ export class ScaledDirective {
 	//default : center
 	@Input('vnScaledAnchor') anchor:scaledAnchorProp = null;
 	
+	scale:number;
 	
 	
 	
@@ -97,6 +98,7 @@ export class ScaledDirective {
 		let value:string = anchorstr + " " + "scale(" + scale + ")";
 		this.renderer.setStyle(el, 'transform', value);
 		
+		this.scale = scale;
 		
 		// console.log('ui : '+this.options.uiWidth+', '+this.options.uiHeight+' w : '+windowWidth+','+windowHeight+', scale : '+scale);
 		

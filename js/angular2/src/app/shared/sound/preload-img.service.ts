@@ -8,7 +8,7 @@ export class PreloadImgService {
 	length:number;
 	counter:number;
 	
-	preload(tab:string[], handlerComplete:()=>void = null) {
+	preload(tab:string[], handlerComplete:()=>void = null, timeAdd:number = 0) {
 		var img;
 		this.length = tab.length;
 		this.counter = 0;
@@ -24,7 +24,9 @@ export class PreloadImgService {
 						console.log('preload img complete '+this.counter+' / '+this.length);
 						if(handlerComplete){
 							console.log('preload img COMPLETE');
-							handlerComplete();
+							if(timeAdd == 0) handlerComplete();
+							else setTimeout(handlerComplete, timeAdd);
+							
 						}
 					}
 				}
@@ -35,6 +37,9 @@ export class PreloadImgService {
 				document.querySelector("body").appendChild(div);
 				
 		}
+		
+		if(this.length == 0 && handlerComplete) handlerComplete();
+		
 	}
 	
 	
