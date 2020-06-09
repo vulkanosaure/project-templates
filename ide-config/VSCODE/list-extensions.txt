@@ -12,12 +12,12 @@ inu1255.easy-snippet
 jmfirth.vsc-space-block-jumper
 ms-vscode.resharper9-keybindings
 msjsdiag.debugger-for-chrome
-pranaygp.vscode-css-peek
+pranaygp.vscode-css-peek							DISABLE
 rbbit.typescript-hero
 ruakr.ftp-kr
 Rubymaniac.vscode-paste-and-indent
 steoates.autoimport
 tickleforce.scrolloff
 vulkanosaure.vscode-quick-select2
-vsmobile.cordova-tools
+vsmobile.cordova-tools								DISABLE
 wmontalvo.vsc-jsonsnippets

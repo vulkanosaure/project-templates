@@ -15,6 +15,7 @@ import { Nl2brPipe } from './pipes/nl2br.pipe';
 import { SoundPlayerService } from './sound/sound-player.service';
 import { WINDOW_PROVIDERS } from './utils/window.service';
 import { ScaledDirective } from './directives/scaled.directive';
+
 import { RouterEventService } from './navigation/router-event.service';
 import { UrlParserService } from './navigation/url-parser.service';
 import { TweenAnimateService } from './animation/tween.animate.service';
@@ -29,11 +30,14 @@ import { PaginationLiComponent } from './ui/pagination-li/pagination-li.componen
 import { PaginationComponent } from './ui/pagination/pagination.component';
 import { TransitionerComponent } from './ui/transitioner/transitioner.component';
 import { NumberPipe } from './pipes/number.pipe';
+import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { TurnBasedService } from './pattern/turn-based.service';
 import { DragndropService } from './ui/dragndrop.service';
 import { MouseWheelService } from './inputs/mouse-wheel.service';
 import { KeyboardService } from './inputs/keyboard.service';
 import { SwipeService } from './inputs/swipe.service';
+import { ClickOutsideDirective } from './directives/clickOutside.directive';
+import { VisibleDirective } from './directives/visible.directive';
 
 @NgModule({
   imports: [
@@ -43,9 +47,12 @@ import { SwipeService } from './inputs/swipe.service';
 		RouterMenuComponent,
 		Nl2brPipe,
 		ClickEnabledDirective,
-		ScaledDirective,
+    ScaledDirective,
+    VisibleDirective,
+		ClickOutsideDirective,
 		BbcodePipe,
 		NumberPipe,
+		ThousandSeparatorPipe,
 		ScrollBlockComponent,
 		PaginationLiComponent,
 		PaginationComponent,
@@ -56,8 +63,11 @@ import { SwipeService } from './inputs/swipe.service';
 		Nl2brPipe,
 		ClickEnabledDirective,
 		ScaledDirective,
+    VisibleDirective,
+		ClickOutsideDirective,
 		BbcodePipe,
 		NumberPipe,
+		ThousandSeparatorPipe,
 		ScrollBlockComponent,
 		PaginationLiComponent,
 		PaginationComponent,
@@ -65,12 +75,12 @@ import { SwipeService } from './inputs/swipe.service';
 	],
 })
 export class SharedModule {
-	
+
 	static forRoot(
 		_bbcodeConfigs:BbcodeConfig[] = null,
-		
+
 	): ModuleWithProviders {
-		
+
 		return {
 			ngModule: SharedModule,
 			providers: [
